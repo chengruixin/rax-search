@@ -44,15 +44,10 @@ const writeContentToFile = (filePath, content) => {
     })
 }
 
-readFileContent('../data/case.10000.16.txt')
+readFileContent('../data/services.txt')
     .then( data => {
         const toBeWritten = convertTextToArray(data);
         // console.log(toBeWritten);
         return writeContentToFile('../data/test.js', toBeWritten);
-    })
-    .then( (data)=>{
-        console.log(data);
-        const js = require("../data/test");
-        console.log(js[0]);
     })
     .catch( err => console.log(err));
