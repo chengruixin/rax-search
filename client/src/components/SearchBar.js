@@ -24,27 +24,21 @@ function SearchBar(){
             .catch( err => console.error(err));
     }
     return (
-        <div>
+        <div className="search-box">
             <input className="search-bar" type="text" onChange={handleChangeEvent} />
-            <div>
-                <div>
-                    Exact:
-                    <ul>
-                        {exactMatches.map( (string, index) => 
-                                <li key={index}>{string}</li>
-                        )}
-                    </ul>
-                </div>
-               
-                <div>
-                    Fuzzy:
-                    <ul>
-                        {fuzzyMatches.map( (string, index) => 
-                                <li key={index}>{string}</li>
-                        )}
-                    </ul>
-                </div>
-            </div>
+            {
+                exactMatches.length === 0 && fuzzyMatches.length === 0 
+                ? null :
+                <ul>
+                    {exactMatches.map( (string, index) => 
+                            <li className="exact-results" key={index}>{string}</li>
+                    )}
+                    {fuzzyMatches.map( (string, index) => 
+                            <li className="fuzzy-results" key={index}>{string}</li>
+                    )}
+                </ul>
+            }
+            
         </div>
         
         
