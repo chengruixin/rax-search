@@ -22,4 +22,8 @@ function fuzzyMatch(tested, pattern){
     return samllest;
 }
 
+// function fuzzyMatch(tested, pattern){
+//     // return minDistance(tested.substring(0, pattern.length), pattern);
+//     return minDistance(tested, pattern);
+// }
 module.exports = fuzzyMatch;

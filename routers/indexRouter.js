@@ -24,7 +24,7 @@ router.get('/', (req, res)=>{
             else{
 
                 let value = fuzzyMatch(compared, pattern);
-                if(value <= pattern.length/2){
+                if(value <= pattern.length * 2){
                     fuzzyMatchings.push({
                         string : storedData[i],
                         value : value
@@ -43,7 +43,7 @@ router.get('/', (req, res)=>{
             exact.push(exactResult[i]);
         }
         for(let i = 0; i < fuzzyMatchings.length && i < 5; i++){
-            fuzzy.push(fuzzyMatchings[i].string);
+            fuzzy.push(fuzzyMatchings[i].string +  " @" + fuzzyMatchings[i].value);
         }
 
         console.timeEnd('resqueted');
