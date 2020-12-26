@@ -8,7 +8,7 @@ function SearchBar(){
     const handleChangeEvent = (e)=>{
         // console.log(e.target.value);
         if(!e.target.value) {
-            setExactMatches([]);
+            // setExactMatches([]);
             setFuzzyMatches([]);
             return;
         };
@@ -17,9 +17,9 @@ function SearchBar(){
                 return res.json();
             })
             .then( data =>{
-                console.log(data);
-                setExactMatches(data.exact);
-                setFuzzyMatches(data.fuzzy);
+                console.log(data.similarItems);
+                // setExactMatches(data.exact);
+                setFuzzyMatches(data.similarItems);
             })
             .catch( err => console.error(err));
     }
@@ -30,11 +30,11 @@ function SearchBar(){
                 exactMatches.length === 0 && fuzzyMatches.length === 0 
                 ? null :
                 <ul>
-                    {exactMatches.map( (string, index) => 
-                            <li className="exact-results" key={index}>{string}</li>
-                    )}
-                    {fuzzyMatches.map( (string, index) => 
-                            <li className="fuzzy-results" key={index}>{string}</li>
+                    {/* {exactMatches.map( (item, index) => 
+                            <li className="exact-results" key={index}>{item.string}</li>
+                    )} */}
+                    {fuzzyMatches.map( (item, index) => 
+                            <li className="fuzzy-results" key={index}>{item.string}</li>
                     )}
                 </ul>
             }

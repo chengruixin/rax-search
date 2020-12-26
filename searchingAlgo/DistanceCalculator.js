@@ -29,12 +29,11 @@ function getLvstnDistance(string1, string2) {
     return dp[string1.length][string2.length];
 };
 
-function getCosDistance(string1, string2){
+
+function getCosDistance(arr1, arr2){
     
-    string1 = string1.trim();
-    string2 = string2.trim();
-    const [vec1 , vec2] = getVectors(string1, string2);
-    console.log(vec1, vec2);
+    const [vec1 , vec2] = getVectors(arr1, arr2);
+
     let nume = 0;
     for(let i = 0; i < vec1.length; i++){
         nume += vec1[i] * vec2[i];
@@ -50,31 +49,31 @@ function getCosDistance(string1, string2){
     return denomi1 === denomi2 ? nume/denomi1 :  nume / ( Math.sqrt(denomi1) * Math.sqrt(denomi2) );
 }
 
-function getVectors(string1, string2){
+function getVectors(arr1, arr2){
+    const sharedElements = new Set();
+    const arr1Set = new Set();
+    const arr2Set = new Set();
     const vec1 = [];
     const vec2 = [];
-    const str1Slot = new Array(128);
-    const str2Slot = new Array(128);
-    const sharedSlot = new Array(128);
-    // console.log(str1Slot);
-    for(let i = 0; i < string1.length ; i++){
-        str1Slot[string1.charCodeAt(i)] = 1;
-        sharedSlot[string1.charCodeAt(i)] = 1;
+
+    for(let i = 0; i < arr1.length; i++){
+        sharedElements.add(arr1[i]);
+        arr1Set.add(arr1[i]);
     }
 
-    for(let i = 0; i < string2.length ; i++){
-        str2Slot[string2.charCodeAt(i)] = 1;
-        sharedSlot[string2.charCodeAt(i)] = 1;
+    for(let i = 0; i < arr2.length; i++){
+        sharedElements.add(arr2[i]);
+        arr2Set.add(arr2[i]);
     }
-    for(let i = 0; i < sharedSlot.length; i++){
-        if(sharedSlot[i] !== 1) continue;
 
-        if(str1Slot[i] == 1) vec1.push(1);
+    for(let el of sharedElements){
+        if(arr1Set.has(el)) vec1.push(1);
         else vec1.push(0);
 
-        if(str2Slot[i] == 1) vec2.push(1);
+        if(arr2Set.has(el)) vec2.push(1);
         else vec2.push(0);
     }
+
     return [vec1, vec2];
 }
 

@@ -1,7 +1,15 @@
-const {getCosDistance, getLvstnDistance} = require("./DistanceCalculator");
+const {produceSimilarItems} = require("./FuzzyMatcher");
+const haystacks = require("./../data/test");
 
-let str1 = "abcdfefead";
-let str2 = ";lbcadlldf";
+console.time("f");
 
-console.log(getCosDistance(str1,str2));
-console.log(getLvstnDistance(str1, str2));
+let pattern = "appceleratortitanium";
+let arrByNew = produceSimilarItems(haystacks, pattern);
+
+let iterations = 10;
+for(let i = 0 ; i < iterations ; i++){
+    console.log(arrByNew[i]);
+}
+
+
+console.timeEnd("f");

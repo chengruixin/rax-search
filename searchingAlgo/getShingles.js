@@ -1,14 +1,20 @@
+/**
+ * 
+ * @param {String} str 
+ * @param {Number} len
+ * @return {Array} 
+ */
 function getShingles(str, len){
     
     if(len >= str.length) return [str];
     
-    const ans = [];
+    const arr = [];
     for(let i = 0 ; i + len - 1 < str.length; i++){
-        ans.push(str.substring(i, i + len));
+        arr.push(str.substring(i, i + len));
         
     }
    
-    return ans;
+    return arr;
 }
 
 module.exports = getShingles;
