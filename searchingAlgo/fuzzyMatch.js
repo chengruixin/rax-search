@@ -1,4 +1,4 @@
-const minDistance = require("./minDistance");
+const minDistance = require("./DistanceCalculator");
 const getShingles = require("./getShingles");
 
 /**

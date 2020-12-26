@@ -19,7 +19,7 @@ function computeNext(pattern){
     return next;
 }
 
-function KmpReturnArray(tested, pattern){
+function getMatchedIndexArray(haystack, pattern){
     const ans = [];
     //get next
     const next = computeNext(pattern);
@@ -34,8 +34,8 @@ function KmpReturnArray(tested, pattern){
     let ttPtr = 0;
     let ptPtr = 0;
 
-    while(ttPtr < tested.length){
-        if(tested.charAt(ttPtr) === pattern.charAt(ptPtr)){
+    while(ttPtr < haystack.length){
+        if(haystack.charAt(ttPtr) === pattern.charAt(ptPtr)){
             ttPtr++;
             ptPtr++;
 
@@ -60,7 +60,7 @@ function KmpReturnArray(tested, pattern){
 
 }
 
-function KmpReturnBoolean(tested, pattern){
+function hasPattern(haystack, pattern){
     // const ans = [];
     //get next
     const next = computeNext(pattern);
@@ -75,8 +75,8 @@ function KmpReturnBoolean(tested, pattern){
     let ttPtr = 0;
     let ptPtr = 0;
 
-    while(ttPtr < tested.length){
-        if(tested.charAt(ttPtr) === pattern.charAt(ptPtr)){
+    while(ttPtr < haystack.length){
+        if(haystack.charAt(ttPtr) === pattern.charAt(ptPtr)){
             ttPtr++;
             ptPtr++;
 
@@ -103,6 +103,6 @@ function KmpReturnBoolean(tested, pattern){
 }
 
 module.exports = {
-    KmpReturnArray,
-    KmpReturnBoolean
+    getMatchedIndexArray,
+    hasPattern
 };

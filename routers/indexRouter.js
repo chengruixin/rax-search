@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const storedData = require("../data/test");
-const {KmpReturnBoolean} = require("../searchingAlgo/Kmp");
+const {KmpReturnBoolean} = require("../searchingAlgo/PatternFinder");
 const fuzzyMatch = require("../searchingAlgo/fuzzyMatch");
 router.get('/', (req, res)=>{
     
