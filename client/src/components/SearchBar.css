@@ -2,17 +2,16 @@
     height: 1.6rem;
     font-size: 1.5rem;
     padding: 1rem;
+    
 }
 .search-box {
     width: 22em;
-    margin-top: 20em;
+    margin: 3em;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,0);
+    
+   
 }
 
 .search-box ul {

@@ -43,7 +43,8 @@ const writeContentToFile = (filePath, content) => {
         })
     })
 }
-
+//services.txt
+//case.10000.16.txt
 readFileContent('../data/services.txt')
     .then( data => {
         const toBeWritten = convertTextToArray(data);
