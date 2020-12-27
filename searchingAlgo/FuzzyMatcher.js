@@ -1,4 +1,4 @@
-const getShingles = require("./getShingles");
+const {getShingles} = require("./Computer");
 const {getCosDistance, getLvstnDistance} = require("./DistanceCalculator");
 
 /**
@@ -59,4 +59,5 @@ function getSimilarity2(string1, string2){
 
     return samllest;
 }
-module.exports = {  produceSimilarItems, getSimilarity};
+
+module.exports = {produceSimilarItems};
