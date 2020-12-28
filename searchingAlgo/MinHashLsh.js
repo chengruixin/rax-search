@@ -19,6 +19,14 @@ const haystacks = [
     "Done"
 ]
 
+// const haystacks = [
+   
+//     "This is a sentence ended with a dog",
+//     "This is a sentence ended with a cat",
+//     "This is not a similar sentence comparing to former two",
+//     "a tas is a sentence ended with this a god"
+// ]
+
 /**
  * 
  * @param {Vector[]} matrix 
@@ -33,27 +41,21 @@ function minHashing(matrix, signatureLength){
     for(let i = 0; i < permutations.length; i++){
         permutations[i] = getRandomArray(permutationLength);
     }
-    
-    // permutations = [
-    //     [2,3,7,6,1,5,4],
-    //     [4,2,1,3,6,7,5],
-    //     [3,4,7,2,6,1,5]
-    // ];
 
     /**
      * Min-hashing
      */
+
+    //Intialize signatures
     let signatures = new Array(matrix.length);
     for(let i = 0; i < signatures.length; i++){
         signatures[i] = new Array(permutations.length).fill(0);
     }
-    // const signatures = [];
-    for(let i = 0; i < permutations.length; i++){
 
+    for(let i = 0; i < permutations.length; i++){
         let result = new Array(matrix.length).fill(Number.MAX_VALUE);
         for(let j = 0; j < permutations[i].length; j++){
             let curVal = permutations[i][j];
-            
             for(let k = 0; k < matrix.length; k++){
                 if(matrix[k][j] === 0) continue;
                 if(result[k] > curVal) {
@@ -67,10 +69,49 @@ function minHashing(matrix, signatureLength){
     return signatures;
 }
 
+/**
+ * 
+ * @param {Number[][]} signatures 
+ * @param {Number} bands 
+ * @param {Number} rows 
+ * @return {Map} returns the bucket that contains the candidates that might be similar
+ */
+function localitySensitiveHashing(signatures, bands, rows){
+    const buckets = new Map();
 
+    for(let i = 0; i < signatures.length; i++){
+        for(let b = 0; b < bands; b++){
+            let key = '';
+            for(let r = 0; r < rows; r++){
+                if(r != rows - 1) {
+                    key += signatures[i][b * rows + r] + '#';
+                }
+                else {
+                    key += signatures[i][b * rows + r];
+                }
+            }
+
+            if(!buckets.has(key)){
+
+                buckets.set(key, [i]);
+            }
+            else{
+                let val = buckets.get(key);
+                val.push(i);
+                buckets.set(key, val);
+            }
+        }
+    }
+
+    return buckets;
+
+    return buckets;
+}
 void function main(){
     const shingleLength = 5;
-    const signatureLength = 20;
+    const bands = 10;
+    const rows = 5;
+    const signatureLength = bands * rows;
     /**
      * 1. Shingling haystacks
      */
@@ -90,7 +131,15 @@ void function main(){
      */
     //min-hash the set of vectors
     const signatureMatrix = minHashing(shingleVectors, signatureLength);
-    console.log(signatureMatrix);
+    
+    /**
+     * 3. Locality-senstive hashing
+     * 
+     */
+
+    const buckets = localitySensitiveHashing(signatureMatrix, bands, rows);
+    console.log(buckets);
+    console.log(haystacks);
 }() 
 
 // void function test(){
