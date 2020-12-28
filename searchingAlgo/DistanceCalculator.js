@@ -1,3 +1,5 @@
+const {getVectors} = require("./Computer");
+
 function getLvstnDistance(string1, string2) {
     //dp init
     const dp = new Array(string1.length + 1);
@@ -32,7 +34,7 @@ function getLvstnDistance(string1, string2) {
 
 function getCosDistance(arr1, arr2){
     
-    const [vec1 , vec2] = getVectors(arr1, arr2);
+    const [vec1 , vec2] = getVectors([arr1, arr2]);
 
     let nume = 0;
     for(let i = 0; i < vec1.length; i++){
@@ -49,32 +51,6 @@ function getCosDistance(arr1, arr2){
     return denomi1 === denomi2 ? nume/denomi1 :  nume / ( Math.sqrt(denomi1) * Math.sqrt(denomi2) );
 }
 
-function getVectors(arr1, arr2){
-    const sharedElements = new Set();
-    const arr1Set = new Set();
-    const arr2Set = new Set();
-    const vec1 = [];
-    const vec2 = [];
 
-    for(let i = 0; i < arr1.length; i++){
-        sharedElements.add(arr1[i]);
-        arr1Set.add(arr1[i]);
-    }
-
-    for(let i = 0; i < arr2.length; i++){
-        sharedElements.add(arr2[i]);
-        arr2Set.add(arr2[i]);
-    }
-
-    for(let el of sharedElements){
-        if(arr1Set.has(el)) vec1.push(1);
-        else vec1.push(0);
-
-        if(arr2Set.has(el)) vec2.push(1);
-        else vec2.push(0);
-    }
-
-    return [vec1, vec2];
-}
 
 module.exports = {getLvstnDistance, getCosDistance};

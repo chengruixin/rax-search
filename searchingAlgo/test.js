@@ -1,15 +1,8 @@
-const {produceSimilarItems} = require("./FuzzyMatcher");
-const haystacks = require("./../data/test");
+const set =new Set();
 
-console.time("f");
-
-let pattern = "appceleratortitanium";
-let arrByNew = produceSimilarItems(haystacks, pattern);
-
-let iterations = 10;
-for(let i = 0 ; i < iterations ; i++){
-    console.log(arrByNew[i]);
-}
-
-
-console.timeEnd("f");
+set.add([1,2]);
+set.add([1,2]);
+set.add([1,2]);
+set.add([1,2]);
+set.add([1,2]);
+console.log(set);
