@@ -1,12 +1,21 @@
-const arr = [1,2,3,4];
+const haystacks = require("./../data/test");
+const {findSimilarItems, findReapeated} = require("./MinHashLsh");
+const {getSimilarity} = require("./FuzzyMatcher");
 
-const pad = new Array(4).fill(new Array(3).fill(0))
+const shingleLength = 3;
+const bands = 10;
+const rows = 3;
+console.time("a");
+const buckets = findSimilarItems(haystacks, shingleLength, bands , rows);
 
-for(let j = 0; j < 3 ; j++){
-    for(let i = 0; i < arr.length; i++){
-        pad[i][j] = arr[i];
+const reapeated = findReapeated(buckets);
+
+for(let i = 0; i < reapeated.length ; i++){
+    let arr = reapeated[i].split(",");
+    console.log("print similar items:")
+    for(let j = 0; j < arr.length; j++){
+        console.log(haystacks[arr[Number(j)]]);
     }
+    console.log("\n");
 }
-
-
-console.log(pad);
+console.timeEnd("a");

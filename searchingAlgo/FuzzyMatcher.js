@@ -60,4 +60,4 @@ function getSimilarity2(string1, string2){
     return samllest;
 }
 
-module.exports = {produceSimilarItems};
+module.exports = {produceSimilarItems, getSimilarity};

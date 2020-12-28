@@ -92,7 +92,6 @@ function localitySensitiveHashing(signatures, bands, rows){
             }
 
             if(!buckets.has(key)){
-
                 buckets.set(key, [i]);
             }
             else{
@@ -104,19 +103,30 @@ function localitySensitiveHashing(signatures, bands, rows){
     }
 
     return buckets;
-
-    return buckets;
 }
-void function main(){
-    const shingleLength = 5;
-    const bands = 10;
-    const rows = 5;
+
+/**
+ * 
+ * findSimilarItems will use 3-step to compute similar items
+ * 1. Shingling
+ * 2. Min-hash
+ * 3. Locality-sensitive hash
+ * Finally, results will be buckets that have indexs of candidates that might be similar
+ * 
+ * @param {Array[]} haystacks 
+ * @param {Number} shingleLength 
+ * @param {b val} bands 
+ * @param {r val} rows 
+ */
+function findSimilarItems(haystacks, shingleLength, bands, rows){
+    if(!haystacks || !shingleLength || !bands || !rows) {
+        throw new Error("All params must not be empty");
+    }
     const signatureLength = bands * rows;
     /**
      * 1. Shingling haystacks
      */
     const shinglesArray = new Array(haystacks.length);
-
     for(let i = 0; i < shinglesArray.length ; i++){
         shinglesArray[i] = getShingles(haystacks[i], shingleLength);
     }
@@ -127,20 +137,45 @@ void function main(){
     const shingleVectors = getVectors(shinglesArray);//the matrix that has vectors that represent shingles
 
     /**
-     * 2. Min-Hash
+     * 2. Min-Hashing
      */
     //min-hash the set of vectors
     const signatureMatrix = minHashing(shingleVectors, signatureLength);
-    
+
     /**
      * 3. Locality-senstive hashing
      * 
      */
-
     const buckets = localitySensitiveHashing(signatureMatrix, bands, rows);
-    console.log(buckets);
-    console.log(haystacks);
-}() 
+
+    return buckets;
+}
+
+function findReapeated(buckets){
+    const set = new Set();
+
+    for(let value of buckets.values()){
+        if(value.length <= 1) continue;
+        const excludeReapteded = new Set(value);
+        set.add([...excludeReapteded].join(","));
+    }
+
+    return [...set];
+}
+module.exports = {
+    findSimilarItems,
+    findReapeated
+}
+// void function main(){
+//     const shingleLength = 5;
+//     const bands = 10;
+//     const rows = 5;
+    
+//     const buckets = findSimilarItems(haystacks, shingleLength, bands, rows);
+//     console.log(buckets);
+// }() 
+
+
 
 // void function test(){
 //     const matrix = [
