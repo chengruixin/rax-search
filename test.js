@@ -1,4 +1,6 @@
-let str = "abededf";
-let prn = "abc";
+function b(){
+    return "heyhey";
+}
 
-console.log(str.substring(0,prn.length));
+let a = b;
+b();

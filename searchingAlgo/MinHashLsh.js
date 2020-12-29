@@ -1,32 +1,5 @@
 const {getShingles, getVectors, getRandomArray} = require("./Computer");
 
-const haystacks = [
-    "I went to hospital yesterday",
-    "Today is a good day to die",
-    "I am about to the town, would you come?",
-    "Am I talking like that?",
-    "I went to the old town about three years ago?",
-    "Thinking helps clean your head",
-    "We actually are doing a similarity test",
-    "See how algo of this could find similar items",
-    "So now, I am gonna create small relatively similar items",
-    "To see how good this algo could be",
-    "This is a sentence ended with a dog",
-    "This is a sentence ended with a cat",
-    "This is not a similar sentence comparing to former two",
-    "A cat is eating a dog at the end of this sentence",
-    "Dog went to hospital by the cat",
-    "Done"
-]
-
-// const haystacks = [
-   
-//     "This is a sentence ended with a dog",
-//     "This is a sentence ended with a cat",
-//     "This is not a similar sentence comparing to former two",
-//     "a tas is a sentence ended with this a god"
-// ]
-
 /**
  * 
  * @param {Vector[]} matrix 
@@ -83,21 +56,20 @@ function localitySensitiveHashing(signatures, bands, rows){
         for(let b = 0; b < bands; b++){
             let key = '';
             for(let r = 0; r < rows; r++){
-                if(r != rows - 1) {
-                    key += signatures[i][b * rows + r] + '#';
-                }
-                else {
-                    key += signatures[i][b * rows + r];
-                }
+                key += signatures[i][b * rows + r];
             }
-
-            if(!buckets.has(key)){
-                buckets.set(key, [i]);
+            
+            /**
+             * Bukets : Number -> String("1,2,3,4,5")
+             */
+            let numKey = Number(key);
+            if(!buckets.has(numKey)){
+                buckets.set(numKey, String(i));
             }
             else{
-                let val = buckets.get(key);
-                val.push(i);
-                buckets.set(key, val);
+                let val = buckets.get(numKey);
+                val += "," + String(i);
+                buckets.set(numKey, val);
             }
         }
     }
@@ -155,8 +127,8 @@ function findReapeated(buckets){
     const set = new Set();
 
     for(let value of buckets.values()){
-        if(value.length <= 1) continue;
-        const excludeReapteded = new Set(value);
+        if(value.split(",").length <= 1) continue;
+        const excludeReapteded = new Set(value.split(","));
         set.add([...excludeReapteded].join(","));
     }
 
@@ -166,25 +138,3 @@ module.exports = {
     findSimilarItems,
     findReapeated
 }
-// void function main(){
-//     const shingleLength = 5;
-//     const bands = 10;
-//     const rows = 5;
-    
-//     const buckets = findSimilarItems(haystacks, shingleLength, bands, rows);
-//     console.log(buckets);
-// }() 
-
-
-
-// void function test(){
-//     const matrix = [
-//         [1,1,0,0,0,1,1],
-//         [0,0,1,1,1,0,0],
-//         [1,0,0,0,0,1,1],
-//         [0,1,1,1,1,0,0]
-//     ]
-    
-//     const signatures = minHashing(matrix, 3);
-//     console.log(signatures);
-// }()

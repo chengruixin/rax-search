@@ -1,8 +1,4 @@
-const set =new Set();
+const haystacks = require("./assets/data/sentences1000");
 
-set.add([1,2]);
-set.add([1,2]);
-set.add([1,2]);
-set.add([1,2]);
-set.add([1,2]);
-console.log(set);
+console.log(haystacks.length);
+console.log(haystacks[0]);
