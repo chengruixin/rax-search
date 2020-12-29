@@ -27,6 +27,9 @@ function produceSimilarItems(haystacks, pattern, extraParams = {}){
             ? getSimilarity2(haystack.substring(0, pattern.length), pattern) 
             : getSimilarity(haystack.substring(0, pattern.length), pattern);
 
+        // const sim = toUseSecond && toUseSecond === true 
+        //     ? getSimilarity2(haystack, pattern) 
+        //     : getSimilarity(haystack, pattern);
         similarItems.push({
             string : haystacks[i],//needs to be original string
             similarity : sim
