@@ -1,4 +1,4 @@
-const {getVectors} = require("./Computer");
+const {getVectors} = require("./Helpers");
 
 function getLvstnDistance(string1, string2) {
     //dp init

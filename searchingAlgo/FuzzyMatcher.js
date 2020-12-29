@@ -1,4 +1,4 @@
-const {getShingles} = require("./Computer");
+const {getShinglesByChars} = require("./Helpers");
 const {getCosDistance, getLvstnDistance} = require("./DistanceCalculator");
 
 /**
@@ -23,16 +23,17 @@ function produceSimilarItems(haystacks, pattern, extraParams = {}){
             ? haystacks[i] 
             : haystacks[i].toLowerCase();
 
-        const sim = toUseSecond && toUseSecond === true 
-            ? getSimilarity2(haystack.substring(0, pattern.length), pattern) 
-            : getSimilarity(haystack.substring(0, pattern.length), pattern);
-
         // const sim = toUseSecond && toUseSecond === true 
-        //     ? getSimilarity2(haystack, pattern) 
-        //     : getSimilarity(haystack, pattern);
+        //     ? getSimilarity2(haystack.substring(0, pattern.length), pattern) 
+        //     : getSimilarity(haystack.substring(0, pattern.length), pattern);
+
+        const sim = toUseSecond && toUseSecond === true 
+            ? getSimilarity2(haystack, pattern) 
+            : getSimilarity(haystack, pattern);
         similarItems.push({
             string : haystacks[i],//needs to be original string
-            similarity : sim
+            similarity : sim,
+            index : i
         })
     }
     similarItems.sort((obj1, obj2) => obj2.similarity - obj1.similarity);// decreasing order

@@ -1,15 +1,19 @@
 const haystacks = require("./assets/data/sentences1000");
-const {findSimilarItems, findReapeated} = require("./MinHashLsh");
+const {findSimilarItemsByChars, findReapeated, findSimilarItemsByWords} = require("./MinHashLsh");
+
 // const {getSimilarity} = require("./FuzzyMatcher");
 
-const shingleLength = 4;
-const bands = 5;
-const rows = 8;
-console.time("a");
-const buckets = findSimilarItems(haystacks, shingleLength, bands , rows);
+const shingleLength = 2;
+const bands = 1;
+const rows = 1;
+console.time("whole task");
+const buckets = findSimilarItemsByChars(haystacks, shingleLength, bands , rows);
 // console.log(buckets);
+
+console.time('find reapeated');
 const reapeated = findReapeated(buckets);
-console.log(reapeated);
+console.timeEnd('find reapeated');
+
 for(let i = 0; i < reapeated.length ; i++){
     let arr = reapeated[i].split(",");
     console.log("print similar items:")
@@ -18,4 +22,4 @@ for(let i = 0; i < reapeated.length ; i++){
     }
     console.log("\n");
 }
-console.timeEnd("a");
+console.timeEnd("whole task");
