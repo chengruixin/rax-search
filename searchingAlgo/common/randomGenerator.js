@@ -1,4 +1,5 @@
 const txtgen = require('txtgen');
+const randomWords = require("random-words");
 const {writeContentToFile} = require("./fileReader");
 // const sentence = txtgen.sentence();
 // console.log(sentence);
@@ -23,11 +24,13 @@ function produceContent(contentType, contentLength){
     return content;
 }
 
+function produceContentByArray(array){
+    let content = 'const text = ';
+    content += JSON.stringify(array);
+    content += ";module.exports = text;";
+    return content;
+}
 
-const content = produceContent("sentence", 10000);
-writeContentToFile("./../assets/data/sentences10000.js", content);
-// const paragraph = txtgen.paragraph();
-// console.log(paragraph);
- 
-// const article = txtgen.article();
-// console.log(article);
+const words = randomWords({exactly : 1000});
+const content =produceContentByArray(words);
+writeContentToFile("./../assets/data/words1000.js",content);

@@ -3,8 +3,8 @@ const {findSimilarItems, findReapeated} = require("./MinHashLsh");
 // const {getSimilarity} = require("./FuzzyMatcher");
 
 const shingleLength = 4;
-const bands = 6;
-const rows = 5;
+const bands = 5;
+const rows = 8;
 console.time("a");
 const buckets = findSimilarItems(haystacks, shingleLength, bands , rows);
 // console.log(buckets);

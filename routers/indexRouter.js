@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {produceSimilarItems} = require("./../searchingAlgo/FuzzyMatcher");
-const haystacks = require("./../data/test");
+const haystacks = require("./../searchingAlgo/assets/data/words1000");
 
 router.get('/', (req, res)=>{
     
