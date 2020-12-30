@@ -1,7 +1,12 @@
-const {getShingles, getVectors, getRandomArray} = require("./Computer");
+const {
+    getShinglesByChars,
+    getShinglesByWords, 
+    getVectors, 
+    getRandomArray
+} = require("./Helpers");
 
 /**
- * 
+ * This is time consuming. It needs optimisation
  * @param {Vector[]} matrix 
  */
 function minHashing(matrix, signatureLength){
@@ -90,7 +95,7 @@ function localitySensitiveHashing(signatures, bands, rows){
  * @param {b val} bands 
  * @param {r val} rows 
  */
-function findSimilarItems(haystacks, shingleLength, bands, rows){
+function findSimilarItemsByChars(haystacks, shingleLength, bands, rows){
     if(!haystacks || !shingleLength || !bands || !rows) {
         throw new Error("All params must not be empty");
     }
@@ -98,31 +103,80 @@ function findSimilarItems(haystacks, shingleLength, bands, rows){
     /**
      * 1. Shingling haystacks
      */
+    console.time('Shingling haystacks');
     const shinglesArray = new Array(haystacks.length);
     for(let i = 0; i < shinglesArray.length ; i++){
-        shinglesArray[i] = getShingles(haystacks[i], shingleLength);
+        shinglesArray[i] = getShinglesByChars(haystacks[i], shingleLength);
     }
+    console.timeEnd('Shingling haystacks');
 
     /**
      * 1.1 Compressing shingles to vectors
      */
+    console.time('shingles to vectors');
     const shingleVectors = getVectors(shinglesArray);//the matrix that has vectors that represent shingles
+    console.timeEnd('shingles to vectors');
 
     /**
      * 2. Min-Hashing
      */
     //min-hash the set of vectors
+    console.time('Min-Hashing');
     const signatureMatrix = minHashing(shingleVectors, signatureLength);
+    console.timeEnd('Min-Hashing');
 
     /**
      * 3. Locality-senstive hashing
      * 
      */
+    console.time('lsh');
     const buckets = localitySensitiveHashing(signatureMatrix, bands, rows);
+    console.timeEnd('lsh');
 
     return buckets;
 }
 
+function findSimilarItemsByWords(haystacks, shingleLength, bands, rows){
+    if(!haystacks || !shingleLength || !bands || !rows) {
+        throw new Error("All params must not be empty");
+    }
+    const signatureLength = bands * rows;
+    /**
+     * 1. Shingling haystacks
+     */
+    console.time('Shingling haystacks');
+    const shinglesArray = new Array(haystacks.length);
+    for(let i = 0; i < shinglesArray.length ; i++){
+        shinglesArray[i] = getShinglesByWords(haystacks[i].split(" "), shingleLength);
+    }
+    console.timeEnd('Shingling haystacks');
+    /**
+     * 1.1 Compressing shingles to vectors
+     */
+    console.time('shingles to vectors');
+    const shingleVectors = getVectors(shinglesArray);//the matrix that has vectors that represent shingles
+    console.timeEnd('shingles to vectors');
+
+    /**
+     * 2. Min-Hashing
+     */
+    //min-hash the set of vectors
+    console.time('Min-Hashing');
+    const signatureMatrix = minHashing(shingleVectors, signatureLength);
+    console.timeEnd('Min-Hashing');
+
+    /**
+     * 3. Locality-senstive hashing
+     * 
+     */
+    console.time('lsh');
+    const buckets = localitySensitiveHashing(signatureMatrix, bands, rows);
+    console.timeEnd('lsh');
+
+    return buckets;
+}
+
+/* Helpers */
 function findReapeated(buckets){
     const set = new Set();
 
@@ -134,7 +188,9 @@ function findReapeated(buckets){
 
     return [...set];
 }
+
 module.exports = {
-    findSimilarItems,
+    findSimilarItemsByChars,
+    findSimilarItemsByWords,
     findReapeated
 }

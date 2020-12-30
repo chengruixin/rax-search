@@ -1,4 +1,4 @@
-const {getShingles} = require("./Computer");
+const {getShinglesByChars} = require("./Helpers");
 const {getCosDistance, getLvstnDistance} = require("./DistanceCalculator");
 
 /**
@@ -23,18 +23,17 @@ function produceSimilarItems(haystacks, pattern, extraParams = {}){
             ? haystacks[i] 
             : haystacks[i].toLowerCase();
 
-        const sim = toUseSecond && toUseSecond === true 
-            ? getSimilarity2(haystack.substring(0, pattern.length), pattern) 
-            : getSimilarity(haystack.substring(0, pattern.length), pattern);
-
         // const sim = toUseSecond && toUseSecond === true 
-        //     ? getSimilarity2(haystack, pattern) 
-        //     : getSimilarity(haystack, pattern);
+        //     ? getSimilarity2(haystack.substring(0, pattern.length), pattern) 
+        //     : getSimilarity(haystack.substring(0, pattern.length), pattern);
 
-        
+        const sim = toUseSecond && toUseSecond === true 
+            ? getSimilarity2(haystack, pattern) 
+            : getSimilarity(haystack, pattern);
         similarItems.push({
             string : haystacks[i],//needs to be original string
-            similarity : sim
+            similarity : sim,
+            index : i
         })
     }
     similarItems.sort((obj1, obj2) => obj2.similarity - obj1.similarity);// decreasing order
@@ -45,7 +44,7 @@ function produceSimilarItems(haystacks, pattern, extraParams = {}){
 function getSimilarity(string1, string2){
     const shingleLenth = 2;
     const cosSimWeight = 50;
-    let cosSim = getCosDistance( getShingles(string1, shingleLenth) , getShingles(string2, shingleLenth));
+    let cosSim = getCosDistance( getShinglesByChars(string1, shingleLenth) , getShinglesByChars(string2, shingleLenth));
     let lvstnSim = 1 - getLvstnDistance(string1, string2) / (Math.max(string1.length, string2.length));
 
     return cosSim * cosSimWeight + lvstnSim * (100 - cosSimWeight);
