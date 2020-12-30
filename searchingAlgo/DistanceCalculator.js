@@ -51,6 +51,4 @@ function getCosDistance(arr1, arr2){
     return denomi1 === denomi2 ? nume/denomi1 :  nume / ( Math.sqrt(denomi1) * Math.sqrt(denomi2) );
 }
 
-
-
 module.exports = {getLvstnDistance, getCosDistance};

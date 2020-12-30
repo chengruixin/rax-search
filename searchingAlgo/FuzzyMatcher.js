@@ -30,6 +30,8 @@ function produceSimilarItems(haystacks, pattern, extraParams = {}){
         // const sim = toUseSecond && toUseSecond === true 
         //     ? getSimilarity2(haystack, pattern) 
         //     : getSimilarity(haystack, pattern);
+
+        
         similarItems.push({
             string : haystacks[i],//needs to be original string
             similarity : sim

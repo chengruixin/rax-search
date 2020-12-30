@@ -1,7 +1,8 @@
 const fuzzy = require('fuzzy');
 const haystacks = require("./assets/data/words1000");
+// const haystacks = ['esfdsa'];
 const {produceSimilarItems} = require("./FuzzyMatcher");
-let search = 'asdfse';
+let search = 'esf';
 
 console.time("npm runtime");
 const npmRes = fuzzy.filter(search, haystacks);
