@@ -1,8 +1,10 @@
-const {getShinglesByChars, getShinglesByWords} = require("./Helpers");
+const {getVectors} = require("./Helpers");
 
-let string1 = "adf dl jasdf asdfa asdf";
+let arr = [
+    ["abc", "bc"],
+    ["bc", "word"],
+    ["cd", "pwd"]
+]
 
-console.log(getShinglesByWords(string1.split(" "), 2));
-
-let string = "adf dl jasdf asdfa asdf";
-console.log(getShinglesByChars(string, 3));
+let vectors = getVectors(arr);
+console.log(vectors);

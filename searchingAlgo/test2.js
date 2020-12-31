@@ -1,11 +1,11 @@
-const haystacks = require("./assets/data/sentences10000");
+const haystacks = require("./assets/data/sentences100000");
 const {findSimilarItemsByChars, findReapeated, findSimilarItemsByWords} = require("./MinHashLsh");
 
 // const {getSimilarity} = require("./FuzzyMatcher");
 
 const shingleLength = 2;
 const bands = 2;
-const rows = 3;
+const rows = 2;
 console.time("whole task");
 const buckets = findSimilarItemsByChars(haystacks, shingleLength, bands , rows);
 // console.log(buckets);

@@ -43,6 +43,51 @@ function getShinglesByWords(items, len){
     return ans;
 }
 
+/**
+ * 
+ * @param {Array[][]}  
+ *  
+ */
+// function getVectors(dimensionalArray){
+//     console.time("constructed");
+//     console.log("size : ", dimensionalArray.length);
+//     console.log("length : " , dimensionalArray[0].length);
+//     console.log("el : ", dimensionalArray[0][0]);
+//     let map = new Map();
+
+//     for(let i = 0; i < dimensionalArray.length; i++){
+//         for(let j = 0; j < dimensionalArray[i].length; j++){
+//             if(!map.has(dimensionalArray[i][j])){
+//                 let lookUpArr = new Array(dimensionalArray.length).fill(0);
+//                 lookUpArr[i] = 1;
+//                 map.set(dimensionalArray[i][j], lookUpArr);
+//             }
+//             else{
+//                 map.get(dimensionalArray[i][j])[i] = 1;
+//             }
+//         }
+//     }
+    
+//     console.timeEnd("constructed");
+
+//     console.log(map.size, dimensionalArray.length)
+//     let vectors = new Array(dimensionalArray.length);
+//     for(let i = 0; i < vectors.length; i++){
+//         vectors[i] = new Array(map.size);
+//     }
+//     let j = 0;
+//     for(let lookUpArr of map.values()){
+        
+//         for(let i = 0; i < lookUpArr.length; i++){
+//             // vectors[i].push(lookUpArr[i]);
+//             vectors[i][j] = lookUpArr[i];
+//         }
+
+//         j++;
+//     }
+
+//     return vectors;
+// }
 
 /**
  * 
@@ -50,11 +95,13 @@ function getShinglesByWords(items, len){
  *  
  */
 function getVectors(matrix){
-
+    console.time("half");
     const lines = new Array(matrix.length);;
     const union = new Set();
     
-
+    console.log("size : ", matrix.length);
+    console.log("length : " , matrix[0].length);
+    console.log("el : ", matrix[0][0])
     for(let i = 0; i < matrix.length; i++){
 
         lines[i] = new Set();
@@ -70,13 +117,20 @@ function getVectors(matrix){
 
         
     }
-
+    
+    console.timeEnd("half");
     const vectorsMatrix = new Array(lines.length);
+    console.log(union.size, vectorsMatrix.length);
     for(let i = 0; i < lines.length ; i++){
-        vectorsMatrix[i] = [];
+        vectorsMatrix[i] = new Array(union.size);
+        let j = 0;
         for(let el of union){
-            if(lines[i].has(el)) vectorsMatrix[i].push(1);
-            else vectorsMatrix[i].push(0);
+            
+
+            if(lines[i].has(el)) vectorsMatrix[i][j] = 1;
+            else vectorsMatrix[i][j] = 0;
+
+            j++;
         }
     }
 
