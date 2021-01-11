@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './SearchBar.css';
-
+import Searcher from './../models/Searcher';
 function SearchBar(){
     
     const [exactMatches, setExactMatches] = useState([]);
     const [fuzzyMatches, setFuzzyMatches] = useState([]);
+    const searcher = new Searcher();
     const handleChangeEvent = (e)=>{
         // console.log(e.target.value);
         if(!e.target.value) {
@@ -12,16 +13,15 @@ function SearchBar(){
             setFuzzyMatches([]);
             return;
         };
-        fetch(`/api?search=${e.target.value}`)
-            .then( res => {
-                return res.json();
-            })
-            .then( data =>{
-                console.log(data.similarItems);
-                // setExactMatches(data.exact);
+        
+        searcher.getSearchResult(e.target.value)
+            .then( data => {
+                // console.log(data.similarItems);
                 setFuzzyMatches(data.similarItems);
             })
-            .catch( err => console.error(err));
+            .catch( err => {
+                console.error(err);
+            })
     }
     return (
         <div className="search-box">
