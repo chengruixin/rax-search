@@ -1,12 +1,8 @@
 {
   "name": "rax-search",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {},
+  "version": "0.0.1",
+  "description": "This package uses seraching algorithm to find similar strings",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/chengruixin/rax-search.git"
   },
-  "author": "",
+  "keywords": [
+    "fuzzy",
+    "match"
+  ],
+  "author": "chengruixin <chengruixin_2010@163.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/chengruixin/rax-search/issues"
