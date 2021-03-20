@@ -1,32 +1,10 @@
-const {getShingles, getVectors, getRandomArray} = require("./Computer");
+// const {getShingles, getVectors, getRandomArray} = require("./Computer");
+const Computer = require("./Computer");
+let computer = new Computer();
 
-const haystacks = [
-    "I went to hospital yesterday",
-    "Today is a good day to die",
-    "I am about to the town, would you come?",
-    "Am I talking like that?",
-    "I went to the old town about three years ago?",
-    "Thinking helps clean your head",
-    "We actually are doing a similarity test",
-    "See how algo of this could find similar items",
-    "So now, I am gonna create small relatively similar items",
-    "To see how good this algo could be",
-    "This is a sentence ended with a dog",
-    "This is a sentence ended with a cat",
-    "This is not a similar sentence comparing to former two",
-    "A cat is eating a dog at the end of this sentence",
-    "Dog went to hospital by the cat",
-    "Done"
-]
-
-// const haystacks = [
-   
-//     "This is a sentence ended with a dog",
-//     "This is a sentence ended with a cat",
-//     "This is not a similar sentence comparing to former two",
-//     "a tas is a sentence ended with this a god"
-// ]
-
+let getShingles = computer.getShingles;
+let getVectors = computer.getVectors;
+let getRandomArray = computer.getRandomArray;
 /**
  * 
  * @param {Vector[]} matrix 
