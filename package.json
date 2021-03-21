@@ -1,23 +1,31 @@
 {
-  "name": "rax-search",
-  "version": "0.0.2",
-  "description": "This package uses seraching algorithm to find similar strings",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chengruixin/rax-search.git"
-  },
-  "keywords": [
-    "fuzzy",
-    "match"
-  ],
-  "author": "chengruixin <chengruixin_2010@163.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/chengruixin/rax-search/issues"
-  },
-  "homepage": "https://github.com/chengruixin/rax-search#readme"
+    "name": "rax-search",
+    "version": "0.0.2",
+    "description": "This package uses seraching algorithm to find similar strings",
+    "main": "index.js",
+    "scripts": {
+        "start" : "node ./dist/main.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build" : "webpack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chengruixin/rax-search.git"
+    },
+    "keywords": [
+        "fuzzy",
+        "match"
+    ],
+    "author": "chengruixin <chengruixin_2010@163.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/chengruixin/rax-search/issues"
+    },
+    "homepage": "https://github.com/chengruixin/rax-search#readme",
+    "devDependencies": {
+        "ts-loader": "^8.0.18",
+        "typescript": "^4.2.3",
+        "webpack": "^5.27.1",
+        "webpack-cli": "^4.5.0"
+    }
 }

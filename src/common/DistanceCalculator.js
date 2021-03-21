@@ -1,6 +1,12 @@
 const Computer = require("./Computer");
 
-module.exports = class DistanceCalculator extends Computer {
+class DistanceCalculator {
+
+    static DistanceCalculatorInstance = new DistanceCalculator();
+
+    static create() {
+        return this.DistanceCalculatorInstance;
+    }
 
     getLvstnDistance(string1, string2) {
         //dp init
@@ -34,9 +40,8 @@ module.exports = class DistanceCalculator extends Computer {
     }
 
     getCosDistance(arr1, arr2){
-    
-        const [vec1 , vec2] = this.getVectors([arr1, arr2]);
-    
+        
+        const [vec1 , vec2] = Computer.getVectors([arr1, arr2]);
         let nume = 0;
         for(let i = 0; i < vec1.length; i++){
             nume += vec1[i] * vec2[i];
@@ -51,7 +56,7 @@ module.exports = class DistanceCalculator extends Computer {
     
         return denomi1 === denomi2 ? nume/denomi1 :  nume / ( Math.sqrt(denomi1) * Math.sqrt(denomi2) );
     }
-    
 }
+module.exports = DistanceCalculator.create();
 
 

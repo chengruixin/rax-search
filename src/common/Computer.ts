@@ -1,15 +1,18 @@
 
+class Computer {
 
-module.exports = class Computer {
+    static computerInstance = new Computer();
 
+    static create(){
+        return this.computerInstance;
+    }
     /**
      * 
      * @param {String} str 
      * @param {Number} len
      * @return {Array} 
      */
-
-    getShingles(str, len) {
+    private getShingles(str, len) {
         if(len >= str.length) return [str];
     
         const arr = [];
@@ -26,7 +29,7 @@ module.exports = class Computer {
      * @param {Array[][]}  
      *  
      */
-    getVectors(matrix){
+    private getVectors(matrix){
 
         const lines = new Array(matrix.length);;
         const union = new Set();
@@ -61,7 +64,7 @@ module.exports = class Computer {
     }
 
 
-    getRandomArray(arrayLength){
+    private getRandomArray(arrayLength){
         const arr = new Array(arrayLength);
 
         for(let i = 0; i < arrayLength; i++){
@@ -79,5 +82,10 @@ module.exports = class Computer {
 
         return arr;
     }
+
+    private test(){
+        console.log("Computer is introduced");
+    }
 }
 
+export default Computer.create();
