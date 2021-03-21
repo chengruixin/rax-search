@@ -1,7 +1,8 @@
-import Tester from './src/test.ts';
+import Test from './src/test.ts';
 
-const test = new Tester();
+const tester = new Test();
+tester.foo();
+console.log(tester.id);
 
-test.foo();
-
-test.bar();
+tester.bar();
+console.log(tester.name);
