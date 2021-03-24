@@ -1,17 +1,11 @@
-export default class Test {
+import {
+    getRandomArray
+} from './common/Computer';
 
-    id : string = "1";
-    private name : string = "hello";
-    
-    
-    foo(){
-        console.log("this is public");
-    }
-
-    private bar() {
-        console.log("this is private");
-    }
-
+function run() : void {
+    const arr = getRandomArray(10);
+    const arr2 = getRandomArray(10);
+    console.log(arr,arr2);
 }
 
-
+export default run;

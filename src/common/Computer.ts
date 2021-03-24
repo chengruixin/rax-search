@@ -1,91 +1,119 @@
+/**
+ * Shingling the string (preserve repeated)
+ * for example : str "abcbc" is shingled to [ab, bc, cb, bc] if the shingle size is 2
+ * @param {String} string 
+ * @param {Number} shingleSize
+ * @return {Array} 
+ */
+export function getShinglesPreserveRepeated(string : string, shingleSize : number) : Array<string> {
+    if(shingleSize >= string.length) return [string];
 
-class Computer {
-
-    static computerInstance = new Computer();
-
-    static create(){
-        return this.computerInstance;
-    }
-    /**
-     * 
-     * @param {String} str 
-     * @param {Number} len
-     * @return {Array} 
-     */
-    private getShingles(str, len) {
-        if(len >= str.length) return [str];
-    
-        const arr = [];
-        for(let i = 0 ; i + len - 1 < str.length; i++){
-            arr.push(str.substring(i, i + len));
-            
-        }
-    
-        return arr;
-    }
-
-    /**
-     * 
-     * @param {Array[][]}  
-     *  
-     */
-    private getVectors(matrix){
-
-        const lines = new Array(matrix.length);;
-        const union = new Set();
+    const arr : Array<string> = [];
+    for(let i = 0 ; i + shingleSize - 1 < string.length; i++){
+        arr.push(string.substring(i, i + shingleSize));
         
-
-        for(let i = 0; i < matrix.length; i++){
-
-            lines[i] = new Set();
-            for(let j = 0; j < matrix[i].length; j++){
-                //each element will be added to union
-                union.add(matrix[i][j]);
-
-                //the set representing the current line also will add this new element
-                lines[i].add(matrix[i][j]);
-
-            
-            }
-
-            
-        }
-
-        const vectorsMatrix = new Array(lines.length);
-        for(let i = 0; i < lines.length ; i++){
-            vectorsMatrix[i] = [];
-            for(let el of union){
-                if(lines[i].has(el)) vectorsMatrix[i].push(1);
-                else vectorsMatrix[i].push(0);
-            }
-        }
-
-        return vectorsMatrix;
     }
 
-
-    private getRandomArray(arrayLength){
-        const arr = new Array(arrayLength);
-
-        for(let i = 0; i < arrayLength; i++){
-            arr[i] = i;
-        }
-
-        for(let i = 0; i < arrayLength; i++){
-            let swapIndex = Math.floor(Math.random() * (arrayLength - i));
-
-            //swap
-            let temp = arr[i];
-            arr[i] = arr[swapIndex + i];
-            arr[swapIndex + i] = temp;
-        }
-
-        return arr;
-    }
-
-    private test(){
-        console.log("Computer is introduced");
-    }
+    return arr;
 }
 
-export default Computer.create();
+/**
+ * Shingling the string (disregard repeated)
+ * for example : str "abcbc" is shingled to [ab, bc, cb] if the shingle size is 2
+ * @param {String} string 
+ * @param {Number} shingleSize
+ * @return {Array} 
+ */
+ export function getShinglesDisregardRepeated(string : string, shingleSize : number) : Array<string> {
+    if(shingleSize >= string.length) return [string];
+
+    const arr : Array<string> = [];
+    const lookupTable : any = {};
+    for(let i = 0 ; i + shingleSize - 1 < string.length; i++){
+
+        let subString : string = string.substring(i, i + shingleSize);
+
+        if(!lookupTable[subString]) {
+            arr.push(string.substring(i, i + shingleSize));
+            lookupTable[subString] = 1; //mark as existed
+        }   
+    }
+
+    return arr;
+}
+
+
+/**
+ * 
+ * @param {Array<Array<string>>} 
+ * @return {Array<Array<number>>} number : 0 | 1;
+ * Normalize the tokens/shingles to vectors that are 0s or 1s. 
+ */
+
+export function normalizeToVectors(matrix : Array<Array<string>>) : Array<Array<number>>{
+    const result = [];
+    const union = {};
+    const lineLookUp = []; //strings in each line will be a lookUp table
+    const matrixLength = matrix.length;
+    // 1 get union
+    for(let i = 0; i < matrixLength; i++) {
+
+        lineLookUp[i] = {};
+        for(let j = 0; j < matrix[i].length; j++) {
+            let key : string = matrix[i][j];
+
+            // save to union if key does not exist
+            if(!union[key]) {
+                union[key] = 1;
+            }
+
+            // save this key to line look up table itself.
+            lineLookUp[i][key] = 1;
+        }
+    }
+
+    // 2 normalize strings to vectors
+    let unionKeys = Object.keys(union);
+    for(let i = 0; i < matrixLength; i++) {
+        const row : Array<number> = new Array(unionKeys.length); // this will be the normalized vector from the original shingles/strings
+        for(let j = 0; j < unionKeys.length; j++){
+            let key : string = unionKeys[j];
+
+            if(lineLookUp[i][key]) {
+                row[j] = 1;
+            } else {
+                row[j] = 0;
+            }
+        }
+
+        result.push(row);
+    }
+
+    return result;
+}
+
+/**
+ * 
+ * @param arrayLength : number
+ * @returns : Array<number>
+ * 
+ * Function works similar to permutating an array
+ */
+export function getRandomArray(arrayLength : number) : Array<number>{
+    const arr = new Array(arrayLength);
+
+    for(let i = 0; i < arrayLength; i++){
+        arr[i] = i;
+    }
+
+    for(let i = 0; i < arrayLength; i++){
+        let swapIndex = Math.floor(Math.random() * (arrayLength - i));
+
+        //swap
+        let temp = arr[i];
+        arr[i] = arr[swapIndex + i];
+        arr[swapIndex + i] = temp;
+    }
+
+    return arr;
+}

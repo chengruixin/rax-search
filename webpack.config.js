@@ -1,12 +1,12 @@
 const Path = require("path");
 
 module.exports = {
-    entry : "./test.js",
+    entry : "./test.ts",
     mode : "development",
-    output : {
-        filename : "main.js",
-        path : Path.join(__dirname, "dist")
+    resolve : {
+        extensions : [ '.tsx', '.ts', '.js']
     },
+   
     module : {
         rules : [
             {
@@ -15,5 +15,9 @@ module.exports = {
                 exclude : /node_modules/
             }
         ]
+    },
+    output : {
+        filename : "main.js",
+        path : Path.join(__dirname, "dist")
     }
 }

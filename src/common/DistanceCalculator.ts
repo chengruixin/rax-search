@@ -39,7 +39,7 @@ class DistanceCalculator {
         return dp[string1.length][string2.length];
     }
 
-    getCosDistance(arr1, arr2){
+    getCosDistance(arr1 : Array<string>, arr2){
         
         const [vec1 , vec2] = Computer.getVectors([arr1, arr2]);
         let nume = 0;
