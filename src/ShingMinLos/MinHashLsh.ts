@@ -9,38 +9,45 @@ import {
  * 
  * @param {Vector[]} binaryVectors 
  */
-function minHashing(binaryVectors, signatureLength){
-    let permutations = new Array(signatureLength);//length of signature eventually
-    const permutationLength = binaryVectors[0].length;// single permutation length
 
-    /**
-     *  produce n = signatureLength permutations
-     */
-    for(let i = 0; i < permutations.length; i++){
-        // permutations[i] = getRandomArray(permutationLength);
+
+function minHashing(binaryVectors : Array<Array<number>> , signatureLength : number) : Array<Array<number>> {
+    const permutator = randomPermutationGenerator(binaryVectors[0].length);
+
+    // a lookup table saving index position for every vector that has 1.
+    const existedOnes : Array<Array<number>> = new Array(binaryVectors.length); 
+
+    const signatures : Array<Array<number>> = new Array(binaryVectors.length);
+
+    // record postion of 1s in each vector
+    for(let i = 0; i <binaryVectors.length; i++){
+        existedOnes[i] = [];
+        for(let j = 0; j < binaryVectors[i].length ; j++) {
+            if(binaryVectors[i][j] === 1) {
+                existedOnes[i].push(j);
+            }
+        }
     }
 
-    /**
-     * Min-hashing
-     */
-
-    //Intialize signatures
-    let signatures = new Array(binaryVectors.length);
     for(let i = 0; i < signatures.length; i++){
-        signatures[i] = new Array(permutations.length).fill(0);
+        signatures[i] = new Array(signatureLength);
     }
 
-    for(let i = 0; i < permutations.length; i++){
-        let result = new Array(binaryVectors.length).fill(Number.MAX_VALUE);
-        for(let j = 0; j < permutations[i].length; j++){
-            let curVal = permutations[i][j];
-            for(let k = 0; k < binaryVectors.length; k++){
-                if(binaryVectors[k][j] === 0) continue;
-                if(result[k] > curVal) {
-                    result[k] = curVal;
-                    signatures[k][i] = curVal;
+    for(let i = 0; i < signatureLength; i++){
+        let currentPermutation = permutator.shuffle();
+
+        for(let j = 0; j < signatures.length; j++) {
+            let smallest = currentPermutation[existedOnes[j][0]];
+
+            for(let k = 1; k < existedOnes[j].length; k++){
+                let curHashVal = currentPermutation[existedOnes[j][k]];
+    
+                if(curHashVal < smallest) {
+                    smallest = curHashVal;
                 }
             }
+
+            signatures[j][i] = smallest;
         }
     }
 
@@ -97,7 +104,7 @@ function localitySensitiveHashing(signatures, bands, rows){
  * @param {r val} rows 
  */
 export default function findSimilarItems(documents : Array<any>, shingleLength : number, bands : number, rows : number){
-
+    
     const signatureLength = bands * rows;
     /**
      * 1. Shingling documents
