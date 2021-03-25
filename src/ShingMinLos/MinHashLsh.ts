@@ -1,29 +1,23 @@
 import {
     getShinglesDisregardRepeated,
     normalizeToVectors,
-    randomPermutationGenerator
+    randomPermutationGenerator,
+    hashString
 } from './../common/Computer';
 
-// const {getShingles, getVectors, getRandomArray} = require("./Computer");
-const Computer = require("./Computer");
-let computer = new Computer();
-
-let getShingles = computer.getShingles;
-let getVectors = computer.getVectors;
-let getRandomArray = computer.getRandomArray;
 /**
  * 
- * @param {Vector[]} matrix 
+ * @param {Vector[]} binaryVectors 
  */
-function minHashing(matrix, signatureLength){
+function minHashing(binaryVectors, signatureLength){
     let permutations = new Array(signatureLength);//length of signature eventually
-    const permutationLength = matrix[0].length;// single permutation length
+    const permutationLength = binaryVectors[0].length;// single permutation length
 
     /**
      *  produce n = signatureLength permutations
      */
     for(let i = 0; i < permutations.length; i++){
-        permutations[i] = getRandomArray(permutationLength);
+        // permutations[i] = getRandomArray(permutationLength);
     }
 
     /**
@@ -31,17 +25,17 @@ function minHashing(matrix, signatureLength){
      */
 
     //Intialize signatures
-    let signatures = new Array(matrix.length);
+    let signatures = new Array(binaryVectors.length);
     for(let i = 0; i < signatures.length; i++){
         signatures[i] = new Array(permutations.length).fill(0);
     }
 
     for(let i = 0; i < permutations.length; i++){
-        let result = new Array(matrix.length).fill(Number.MAX_VALUE);
+        let result = new Array(binaryVectors.length).fill(Number.MAX_VALUE);
         for(let j = 0; j < permutations[i].length; j++){
             let curVal = permutations[i][j];
-            for(let k = 0; k < matrix.length; k++){
-                if(matrix[k][j] === 0) continue;
+            for(let k = 0; k < binaryVectors.length; k++){
+                if(binaryVectors[k][j] === 0) continue;
                 if(result[k] > curVal) {
                     result[k] = curVal;
                     signatures[k][i] = curVal;
@@ -97,42 +91,45 @@ function localitySensitiveHashing(signatures, bands, rows){
  * 3. Locality-sensitive hash
  * Finally, results will be buckets that have indexs of candidates that might be similar
  * 
- * @param {Array[]} haystacks 
+ * @param {Array[]} documents 
  * @param {Number} shingleLength 
  * @param {b val} bands 
  * @param {r val} rows 
  */
-function findSimilarItems(haystacks, shingleLength, bands, rows){
-    if(!haystacks || !shingleLength || !bands || !rows) {
-        throw new Error("All params must not be empty");
-    }
+export default function findSimilarItems(documents : Array<any>, shingleLength : number, bands : number, rows : number){
+
     const signatureLength = bands * rows;
     /**
-     * 1. Shingling haystacks
+     * 1. Shingling documents
      */
-    const shinglesArray = new Array(haystacks.length);
-    for(let i = 0; i < shinglesArray.length ; i++){
-        shinglesArray[i] = getShingles(haystacks[i], shingleLength);
-    }
+    const documentsInHashedShingles : Array<Array<any>> = new Array(documents.length);
+    for(let i = 0; i < documents.length ; i++){
+        documentsInHashedShingles[i] = [];
+        let shingles : Array<string> = getShinglesDisregardRepeated(documents[i], shingleLength);
 
+        for(let j = 0; j < shingles.length; j++){
+            documentsInHashedShingles[i].push(hashString(shingles[j]));
+            // documentsInHashedShingles[i].push(shingles[j]); 
+        }
+    }
+    
     /**
-     * 1.1 Compressing shingles to vectors
+     * 1.1 Normalizing shingles to binary vectors
      */
-    const shingleVectors = getVectors(shinglesArray);//the matrix that has vectors that represent shingles
+    const documentsInBinaryVectors = normalizeToVectors(documentsInHashedShingles)
 
     /**
      * 2. Min-Hashing
      */
-    //min-hash the set of vectors
-    const signatureMatrix = minHashing(shingleVectors, signatureLength);
+    const signatures = minHashing(documentsInBinaryVectors, signatureLength);
 
     /**
      * 3. Locality-senstive hashing
      * 
      */
-    const buckets = localitySensitiveHashing(signatureMatrix, bands, rows);
+    // const buckets = localitySensitiveHashing(signatureMatrix, bands, rows);
 
-    return buckets;
+    // return buckets;
 }
 
 function findReapeated(buckets){
@@ -146,7 +143,4 @@ function findReapeated(buckets){
 
     return [...set];
 }
-module.exports = {
-    findSimilarItems,
-    findReapeated
-}
+

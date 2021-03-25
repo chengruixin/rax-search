@@ -47,10 +47,9 @@ export function getShinglesPreserveRepeated(string : string, shingleSize : numbe
  * 
  * @param {Array<Array<string>>} 
  * @return {Array<Array<number>>} number : 0 | 1;
- * Normalize the tokens/shingles to vectors that are 0s or 1s. 
+ * Normalize the tokens/shingles to binary vectors that are 0s or 1s. 
  */
-
-export function normalizeToVectors(matrix : Array<Array<string>>) : Array<Array<number>>{
+export function normalizeToVectors(matrix : Array<Array<any>>) : Array<Array<number>>{
     const result = [];
     const union = {};
     const lineLookUp = []; //strings in each line will be a lookUp table
