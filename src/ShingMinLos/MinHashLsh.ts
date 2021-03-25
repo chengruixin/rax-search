@@ -1,10 +1,9 @@
-// const {getShingles, getVectors, getRandomArray} = require("./Computer");
-const Computer = require("./Computer");
-let computer = new Computer();
+import {
+    getShinglesDisregardRepeated,
+    normalizeToVectors,
+    randomPermutationGenerator
+} from './../common/Computer';
 
-let getShingles = computer.getShingles;
-let getVectors = computer.getVectors;
-let getRandomArray = computer.getRandomArray;
 /**
  * 
  * @param {Vector[]} matrix 
@@ -140,29 +139,5 @@ function findReapeated(buckets){
 
     return [...set];
 }
-module.exports = {
-    findSimilarItems,
-    findReapeated
-}
-// void function main(){
-//     const shingleLength = 5;
-//     const bands = 10;
-//     const rows = 5;
-    
-//     const buckets = findSimilarItems(haystacks, shingleLength, bands, rows);
-//     console.log(buckets);
-// }() 
 
 
-
-// void function test(){
-//     const matrix = [
-//         [1,1,0,0,0,1,1],
-//         [0,0,1,1,1,0,0],
-//         [1,0,0,0,0,1,1],
-//         [0,1,1,1,1,0,0]
-//     ]
-    
-//     const signatures = minHashing(matrix, 3);
-//     console.log(signatures);
-// }()

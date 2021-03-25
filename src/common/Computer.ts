@@ -99,14 +99,59 @@ export function normalizeToVectors(matrix : Array<Array<string>>) : Array<Array<
  * 
  * Function works similar to permutating an array
  */
+
+export function randomPermutationGenerator(size : number/** the size of the permutation you want to create */) {
+    // 1 Initialization
+    const baseArray = new Array(size);
+    for(let i = 0; i < baseArray.length; i++) {
+        baseArray[i] = i;
+    }
+
+    return {
+        /**
+         * 
+         * @returns the original array when it is initialized
+         */
+        shuffle : function () {
+            for(let i = 0; i < size - 1; i++){
+                let swapIndex = Math.floor(Math.random() * (size - i));
+        
+                //swap
+                let temp = baseArray[i];
+                baseArray[i] = baseArray[swapIndex + i];
+                baseArray[swapIndex + i] = temp;
+            }
+
+            return baseArray;
+        },
+
+        /**
+         * 
+         * @returns a new array which used extra memory
+         */
+        shuffleNew : function() {
+            const copiedArray = [...baseArray];
+
+            for(let i = 0; i < size - 1; i++){
+                let swapIndex = Math.floor(Math.random() * (size - i));
+        
+                //swap
+                let temp = copiedArray[i];
+                copiedArray[i] = copiedArray[swapIndex + i];
+                copiedArray[swapIndex + i] = temp;
+            }
+
+            return copiedArray;
+        }
+    }
+}
 export function getRandomArray(arrayLength : number) : Array<number>{
     const arr = new Array(arrayLength);
 
-    for(let i = 0; i < arrayLength; i++){
+    for(let i = 0; i < arr.length; i++) {
         arr[i] = i;
     }
-
-    for(let i = 0; i < arrayLength; i++){
+    for(let i = 0; i < arrayLength - 1; i++){
         let swapIndex = Math.floor(Math.random() * (arrayLength - i));
 
         //swap
