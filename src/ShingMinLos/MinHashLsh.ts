@@ -4,6 +4,13 @@ import {
     randomPermutationGenerator
 } from './../common/Computer';
 
+// const {getShingles, getVectors, getRandomArray} = require("./Computer");
+const Computer = require("./Computer");
+let computer = new Computer();
+
+let getShingles = computer.getShingles;
+let getVectors = computer.getVectors;
+let getRandomArray = computer.getRandomArray;
 /**
  * 
  * @param {Vector[]} matrix 
@@ -139,5 +146,7 @@ function findReapeated(buckets){
 
     return [...set];
 }
-
-
+module.exports = {
+    findSimilarItems,
+    findReapeated
+}
