@@ -1,2 +1,3 @@
-[]. edit localist sensitive hasing
+[*]. edit localist sensitive hasing
+    []. needs to clean up
 []. replace key searching method by obj with that by map/set
