@@ -1,6 +1,2 @@
-[*]. improve hash string function(time complexity)
-[*]. walk through shing-min-los algo
-[*]. improve min-hashing algo
-    []. test obj and binary tree performance
 []. edit localist sensitive hasing
-[*]. edit random array generator
+[]. replace key searching method by obj with that by map/set

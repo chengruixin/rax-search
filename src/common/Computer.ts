@@ -169,6 +169,18 @@ export function hashString(string : string) : number {
     return hash;
 }
 
+export function hashNumbers(numbers : Array<number>) : number {
+    let hash = 0;
+
+    let M = 1e9 + 9;
+    let B = 31;
+
+    for (let i = 0; i < numbers.length; i++) {
+        hash = ( hash % B + numbers[i] ) % M;
+    }
+
+    return hash;
+}
 
 /**
  * 

@@ -1,4 +1,4 @@
-export default [
+export const case1 = [
     "I went to hospital yesterday",
     "Today is a good day to die",
     "I am about to the town, would you come?",
@@ -16,4 +16,12 @@ export default [
     "Dog went to hospital by the cat",
     "Done",
     "There is an eded a sentence dog with cat"
+]
+
+export const case2 = [
+    "This is a sentence ended with a dog",
+    "This is a sentence ended with a cat",
+    "This is not a similar sentence comparing to former two",
+    "There is an eded a sentence dog with cat",
+    "Done",
 ]

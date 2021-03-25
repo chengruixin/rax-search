@@ -2,7 +2,8 @@ import {
     getShinglesDisregardRepeated,
     normalizeToVectors,
     randomPermutationGenerator,
-    hashString
+    hashString,
+    hashNumbers
 } from './../common/Computer';
 
 /**
@@ -61,33 +62,33 @@ function minHashing(binaryVectors : Array<Array<number>> , signatureLength : num
  * @param {Number} rows 
  * @return {Map} returns the bucket that contains the candidates that might be similar
  */
-function localitySensitiveHashing(signatures, bands, rows){
-    const buckets = new Map();
+function localitySensitiveHashing(signatures : Array<Array<number>>, bands : number, rows : number){
+    const hashMapCollector = new Array(bands);
+    for(let i = 0; i < hashMapCollector.length; i++){
+        hashMapCollector[i] = new Map();
+    }
 
     for(let i = 0; i < signatures.length; i++){
+        
         for(let b = 0; b < bands; b++){
-            let key = '';
+
+            let keysBundle = [];
+
             for(let r = 0; r < rows; r++){
-                if(r != rows - 1) {
-                    key += signatures[i][b * rows + r] + '#';
-                }
-                else {
-                    key += signatures[i][b * rows + r];
-                }
+                keysBundle.push(signatures[i][b * rows + r]);
             }
 
-            if(!buckets.has(key)){
-                buckets.set(key, [i]);
-            }
-            else{
-                let val = buckets.get(key);
-                val.push(i);
-                buckets.set(key, val);
+            let hashedKey = hashNumbers(keysBundle);
+            
+            if (!hashMapCollector[b].has(hashedKey)) {
+                hashMapCollector[b].set(hashedKey, [i]);
+            } else {
+                hashMapCollector[b].get(hashedKey).push(i);
             }
         }
     }
 
-    return buckets;
+    return hashMapCollector;
 }
 
 /**
@@ -134,8 +135,9 @@ export default function findSimilarItems(documents : Array<any>, shingleLength :
      * 3. Locality-senstive hashing
      * 
      */
-    // const buckets = localitySensitiveHashing(signatureMatrix, bands, rows);
+    const hashMapCollector = localitySensitiveHashing(signatures, bands, rows);
 
+    console.log(hashMapCollector);
     // return buckets;
 }
 

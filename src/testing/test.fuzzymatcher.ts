@@ -2,17 +2,17 @@ import {
     getShinglesDisregardRepeated,
     normalizeToVectors,
     hashString
-} from './common/Computer';
+} from '../common/Computer';
 
 import {
     getLvstnDistance,
     getCosDistance
-} from './common/DistanceCalculator';
+} from '../common/DistanceCalculator';
 
 
 import {
     produceSimilarItems
-} from './FuzzyMatch/FuzzyMatcher';
+} from '../FuzzyMatch/FuzzyMatcher';
 function run() : void {
     const string1 = "w";
     const string2 = "drink water";
