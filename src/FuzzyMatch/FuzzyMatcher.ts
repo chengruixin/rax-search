@@ -4,6 +4,7 @@ interface param {
     isCaseSensitive : boolean,
     lineToLeft : boolean
 }
+
 /**
  * 
  * @param {String[]} haystacks 
