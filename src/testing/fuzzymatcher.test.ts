@@ -9,11 +9,11 @@ import {
     getCosDistance
 } from '../common/DistanceCalculator';
 
-
 import {
     produceSimilarItems
 } from '../FuzzyMatch/FuzzyMatcher';
-function run() : void {
+
+export default function test() : void {
     const string1 = "w";
     const string2 = "drink water";
     const string3 = "watermelon"
@@ -34,4 +34,3 @@ function run() : void {
     
 }
 
-export default run;
