@@ -174,3 +174,13 @@ export function getDotProduct(vector1 : Array<number>, vector2 : Array<number>) 
 
     return res;
 }
+
+export function getVectorLength(vector : Array<number> ) : number {
+    let res = 0;
+
+    for(let i = 0; i < vector.length; i++){
+        res += vector[i] * vector[i];
+    }
+
+    return Math.sqrt(res);
+}

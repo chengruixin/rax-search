@@ -1,3 +1,5 @@
+import { getDotProduct } from './common';
+
 /**
  * 
  * @param string 
@@ -32,14 +34,10 @@ export function hashNumbers(numbers : Array<number>) : number {
     return hash;
 }
 
-export function projectionHashing(
-    targetVector, 
-    baseVector /** the randomized binary vector */, 
-    bias /** for border handling */
-    // no m for now, let m =  |baseVector|
-    ) {
-    
+export function projectionHashing(targetVector: Array<number>, baseVector : Array<number>, bias : number, M : number) : number {
+    return ( getDotProduct(targetVector, baseVector) + bias ) / M;
 }
+
 /**
  * 
  * @param string 
