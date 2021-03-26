@@ -1,5 +1,6 @@
 import {
-    normalizeToVectors
+    normalizeToVectors,
+    getDotProduct
 } from './common';
 
 export function getLvstnDistance(string1 : string, string2 : string) {
@@ -35,11 +36,7 @@ export function getLvstnDistance(string1 : string, string2 : string) {
 
 export function getCosDistance(shingles1 : Array<string>, shingles2 : Array<string>) : number { 
     const [vec1 , vec2] = normalizeToVectors([shingles1, shingles2]);
-    let dotProduct :number = 0;
-    
-    for(let i = 0; i < vec1.length; i++){
-        dotProduct += vec1[i] * vec2[i];
-    }
+    let dotProduct :number = getDotProduct(vec1, vec2);
     
     let vecLen1 : number = 0;
     let vecLen2 : number = 0;

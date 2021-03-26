@@ -32,6 +32,14 @@ export function hashNumbers(numbers : Array<number>) : number {
     return hash;
 }
 
+export function projectionHashing(
+    targetVector, 
+    baseVector /** the randomized binary vector */, 
+    bias /** for border handling */
+    // no m for now, let m =  |baseVector|
+    ) {
+    
+}
 /**
  * 
  * @param string 

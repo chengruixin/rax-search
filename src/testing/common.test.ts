@@ -1,14 +1,16 @@
 import {hashNumbers} from '../common/hash';
-
+import {randomPermutationGenerator} from '../common/common';
 export default function test() {
-    let arr1 = [1,2,3];
-    let arr2 = [3,4,5];
-    let arr3 = [1,2,3.4];
-    let arr4 = [1,2,3];
+    
+    for(let i = 0; i < 10; i++){
+        console.log(randomPermutationGenerator(10, true).shuffle());
+    }
 
-    console.log(hashNumbers(arr1));
-    console.log(hashNumbers(arr2));
-    console.log(hashNumbers(arr3));
-    console.log(hashNumbers(arr4));
+    let gen2 = randomPermutationGenerator(10);
+
+    for(let i = 0; i < 10; i++){
+        console.log(gen2.shuffle());
+    }
+
 }
 

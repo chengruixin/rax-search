@@ -98,16 +98,30 @@ export function normalizeToVectors(matrix : Array<Array<any>>) : Array<Array<num
  * 
  * Function works similar to permutating an array
  */
-
-export function randomPermutationGenerator(size : number/** the size of the permutation you want to create */) : { 
+export function randomPermutationGenerator(size : number/** the size of the permutation you want to create */, isBinary? : boolean) : { 
     shuffle : Function,
     shuffleNew : Function
 } {
     // 1 Initialization
     const baseArray : Array<any> = new Array(size);
-    for(let i = 0; i < baseArray.length; i++) {
-        baseArray[i] = i;
+
+    if(!isBinary) {
+        for(let i = 0; i < size; i++) {
+            baseArray[i] = i;
+        }
+    } else {
+        let numOfOnes = Math.floor(Math.random() * size + 1);
+
+        for(let i = 0; i < size; i++){
+            if(numOfOnes > 0) {
+                baseArray[i] = 1;
+                numOfOnes--;
+            } else {
+                baseArray[i] = 0;
+            }
+        }
     }
+    
 
     return {
         /**
@@ -148,3 +162,15 @@ export function randomPermutationGenerator(size : number/** the size of the perm
     }
 }
 
+export function getDotProduct(vector1 : Array<number>, vector2 : Array<number>) : number {
+    if(vector1.length !== vector2.length) {
+        throw new TypeError("Two vectors' length are not equal");
+    }
+
+    let res = 0;
+    for(let i = 0; i < vector1.length; i++){
+        res += vector1[i] * vector2[i];
+    }
+
+    return res;
+}
