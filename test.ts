@@ -5,6 +5,6 @@ import distanceTest from './src/testing/distance.test';
 
 
 // fuzzyTest();
-// shingTest();
+shingTest();
 // commonTest();
-distanceTest();
+// distanceTest();

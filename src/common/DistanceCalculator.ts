@@ -49,4 +49,10 @@ export function getCosDistance(shingles1 : Array<string>, shingles2 : Array<stri
 }
 
 
+// export function getJaccardSim(params:type) {
+    
+// }
 
+// export function getJaccardDis(params:type) {
+    
+// }

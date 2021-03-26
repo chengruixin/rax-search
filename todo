@@ -1,3 +1,4 @@
 []. edit localist sensitive hasing
-[]. add hash fn
+    []. mish bias setting, will add it later
+    []. finalise similar items matchig given the hash table 
 []. replace key searching method by obj with that by map/set

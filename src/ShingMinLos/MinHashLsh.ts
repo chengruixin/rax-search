@@ -1,12 +1,14 @@
 import {
     getShinglesDisregardRepeated,
+    getVectorLength,
     normalizeToVectors,
     randomPermutationGenerator
 } from '../common/common';
 
 import {
     hashString,
-    hashNumbers
+    hashNumbers,
+    projectionHashing
 } from '../common/hash';
 /**
  * 
@@ -66,21 +68,26 @@ function minHashing(binaryVectors : Array<Array<number>> , signatureLength : num
  */
 function localitySensitiveHashing(signatures : Array<Array<number>>, bands : number, rows : number){
     const hashMapCollector = new Array(bands);
+    const baseVectorCollector = new Array(bands);
     for(let i = 0; i < hashMapCollector.length; i++){
         hashMapCollector[i] = new Map();
+        baseVectorCollector[i] = randomPermutationGenerator(rows, true).shuffle(); // produce binary vector with size of "rows"
     }
 
     for(let i = 0; i < signatures.length; i++){
         
         for(let b = 0; b < bands; b++){
 
-            let keysBundle = [];
+            let keysBundle = []; // this will be the targetVector
 
             for(let r = 0; r < rows; r++){
                 keysBundle.push(signatures[i][b * rows + r]);
             }
 
-            let hashedKey = hashNumbers(keysBundle);
+            let baseVector = baseVectorCollector[b];
+            let M = getVectorLength(baseVector);
+            // let bias = Math.floor(Math.random() * M + 1);
+            let hashedKey = projectionHashing(keysBundle, baseVector, 0, M);
             
             if (!hashMapCollector[b].has(hashedKey)) {
                 hashMapCollector[b].set(hashedKey, [i]);
@@ -140,6 +147,7 @@ export default function findSimilarItems(documents : Array<any>, shingleLength :
     const hashMapCollector = localitySensitiveHashing(signatures, bands, rows);
 
     console.log(hashMapCollector);
+    console.log(signatures);
     // return buckets;
 }
 

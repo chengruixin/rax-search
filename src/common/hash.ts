@@ -35,7 +35,8 @@ export function hashNumbers(numbers : Array<number>) : number {
 }
 
 export function projectionHashing(targetVector: Array<number>, baseVector : Array<number>, bias : number, M : number) : number {
-    return ( getDotProduct(targetVector, baseVector) + bias ) / M;
+    let res = ( getDotProduct(targetVector, baseVector) + bias ) / M;
+    return res;
 }
 
 /**
