@@ -1,4 +1,4 @@
-import {hashNumbers} from './../common/Computer';
+import {hashNumbers} from '../common/hash';
 
 export default function test() {
     let arr1 = [1,2,3];

@@ -1,4 +1,4 @@
-import {getCosDistance, getLvstnDistance} from '../common/DistanceCalculator';
+import {getCosDistance, getLvstnDistance} from '../common/distanceCalculator';
 
 interface param {
     isCaseSensitive : boolean,

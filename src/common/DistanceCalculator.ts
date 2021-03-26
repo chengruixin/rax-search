@@ -1,6 +1,6 @@
 import {
     normalizeToVectors
-} from './Computer';
+} from './common';
 
 export function getLvstnDistance(string1 : string, string2 : string) {
     //dp init

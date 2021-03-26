@@ -3,3 +3,6 @@ import shingTest from './src/testing/shingminlos.test';
 import commonTest from './src/testing/common.test';
 
 
+fuzzyTest();
+shingTest();
+commonTest();

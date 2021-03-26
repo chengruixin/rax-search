@@ -1,5 +1,5 @@
-import { randomPermutationGenerator } from '../common/Computer';
-import findSimilarItems from '../ShingMinLos/MinHashLsh'
+import { randomPermutationGenerator } from '../common/common';
+import findSimilarItems from '../shingMinLos/minHashLsh'
 import {case1, case2} from '../assets/haystacks';
 
 

@@ -1,17 +1,18 @@
 import {
     getShinglesDisregardRepeated,
-    normalizeToVectors,
-    hashString
-} from '../common/Computer';
+    normalizeToVectors
+} from '../common/common';
+
+import { hashString } from '../common/hash';
 
 import {
     getLvstnDistance,
     getCosDistance
-} from '../common/DistanceCalculator';
+} from '../common/distanceCalculator';
 
 import {
     produceSimilarItems
-} from '../FuzzyMatch/FuzzyMatcher';
+} from '../fuzzyMatch/fuzzyMatcher';
 
 export default function test() : void {
     const string1 = "w";

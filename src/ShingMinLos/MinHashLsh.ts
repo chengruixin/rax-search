@@ -1,11 +1,13 @@
 import {
     getShinglesDisregardRepeated,
     normalizeToVectors,
-    randomPermutationGenerator,
+    randomPermutationGenerator
+} from '../common/common';
+
+import {
     hashString,
     hashNumbers
-} from './../common/Computer';
-
+} from '../common/hash';
 /**
  * 
  * @param {Vector[]} binaryVectors 
