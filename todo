@@ -1,4 +1,15 @@
-[]. edit localist sensitive hasing
-    []. mish bias setting, will add it later
-    []. finalise similar items matchig given the hash table 
-[]. replace key searching method by obj with that by map/set
+1. General
+    [] replace key searching method by obj with that by map/set 
+
+
+2. Locality senstive hashing
+    []. edit localist sensitive hasing
+    []. miss bias setting, will add it later
+    []. finalise similar items matchig given the hash table ->doing
+
+3. Pattern matching
+    []. investigate Karp-Rabin String Matching
+    []. sepearte KMP compute next and search function
+
+4. FuzzyMatch
+    []. add entry settings(the extra parameters) in fuzzy match

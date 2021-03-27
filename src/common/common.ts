@@ -117,7 +117,8 @@ export function randomPermutationGenerator(size : number/** the size of the perm
                 baseArray[i] = 1;
                 numOfOnes--;
             } else {
-                baseArray[i] = 0;
+                // try 1s and -1s instead of 1s and 0s
+                baseArray[i] = -1;
             }
         }
     }
