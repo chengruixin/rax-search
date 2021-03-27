@@ -7,6 +7,7 @@ import {
 import { getJaccardSim } from '../common/distanceCalculator';
 
 import {
+    hashNumbers,
     hashString,
     projectionHashing
 } from '../common/hash';
@@ -69,9 +70,11 @@ function minHashing(binaryVectors : Array<Array<number>> , signatureLength : num
 function localitySensitiveHashing(signatures : Array<Array<number>>, bands : number, rows : number){
     const hashMapCollector = new Array(bands);
     const baseVectorCollector = new Array(bands);
+    const bias = new Array(bands);
     for(let i = 0; i < hashMapCollector.length; i++){
         hashMapCollector[i] = new Map();
         baseVectorCollector[i] = randomPermutationGenerator(rows, true).shuffle(); // produce binary vector with size of "rows"
+        bias[i] = Math.floor(Math.random() * (getVectorLength(baseVectorCollector[i]) + 1));
     }
 
     for(let i = 0; i < signatures.length; i++){
@@ -86,7 +89,6 @@ function localitySensitiveHashing(signatures : Array<Array<number>>, bands : num
 
             let baseVector = baseVectorCollector[b];
             let M = getVectorLength(baseVector);
-            // let bias = Math.floor(Math.random() * M + 1);
             let hashedKey = projectionHashing(keysBundle, baseVector, 0, M);
             
             if (!hashMapCollector[b].has(hashedKey)) {
@@ -149,7 +151,6 @@ export default function findSimilarItems(documents : Array<any>, shingleLength :
     /**
      * 4. Filter the results
      */
-    
     const filterProcess = (searchTarget) => {
        
         const threshold = Math.pow(1/bands, 1/rows) * 0.6;
@@ -182,23 +183,50 @@ export default function findSimilarItems(documents : Array<any>, shingleLength :
             console.log(documents[res[i]]);
         }
     }   
-    filterProcess(16);
-    // console.log(hashMapCollector);
-    // console.log(threshold);
     
+    const mapToTree = ()=>{
+        let simCollection = {};
+
+        for(let hashMap of hashMapCollector){
+            for(let indexs of hashMap.values()) {
+                
+                if(indexs.length <= 1) 
+                    continue;
+                
+                    console.log(indexs);
+
+                //All permutation
+                for(let i = 0; i < indexs.length - 1; i++){
+                    for(let j = i + 1; j < indexs.length; j++){
     
-    // return buckets;
-}
+                        let sim = getJaccardSim(documentsInBinaryVectors[indexs[i]], documentsInBinaryVectors[indexs[j]]);
+    
+                        // Create key-value for indexs[i] if it doesn't exist and give similarity value to its key as indexs[j]
+                        if(!simCollection[indexs[i]]){
+                            simCollection[indexs[i]] = {}
+                        }
+                        if(!simCollection[indexs[i]][indexs[j]]){
+                            simCollection[indexs[i]][indexs[j]] = sim;
+                        }
+    
+                        // Do the same to indexs[j]
+                        if(!simCollection[indexs[j]]){
+                            simCollection[indexs[j]] = {};
+                        }
+                        if(!simCollection[indexs[j]][indexs[i]]) {
+                            simCollection[indexs[j]][indexs[i]] = sim;
+                        }
+                    }
+                }
+    
+            }
+        }
+        
 
-function findReapeated(buckets){
-    const set = new Set();
-
-    for(let value of buckets.values()){
-        if(value.length <= 1) continue;
-        const excludeReapteded = new Set(value);
-        set.add([...excludeReapteded].join(","));
+        return simCollection;
     }
-
-    return [...set];
+    console.log(signatures);
+    console.log(mapToTree());
 }
+
 

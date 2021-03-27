@@ -9,10 +9,18 @@ export function getShinglesPreserveRepeated(string : string, shingleSize : numbe
     if(shingleSize >= string.length) return [string];
 
     const arr : Array<string> = [];
-    for(let i = 0 ; i + shingleSize - 1 < string.length; i++){
-        arr.push(string.substring(i, i + shingleSize));
+    let noSpacesString : string = "";
+
+    for(let i = 0; i < string.length; i++){
+        if(string.charAt(i) !== " "){
+            noSpacesString += string.charAt(i);
+        }
+    }
+    for(let i = 0 ; i + shingleSize - 1 < noSpacesString.length; i++){
+        arr.push(noSpacesString.substring(i, i + shingleSize));
         
     }
+   
 
     return arr;
 }
@@ -29,12 +37,23 @@ export function getShinglesPreserveRepeated(string : string, shingleSize : numbe
 
     const arr : Array<string> = [];
     const lookupTable : any = {};
-    for(let i = 0 ; i + shingleSize - 1 < string.length; i++){
 
-        let subString : string = string.substring(i, i + shingleSize);
+    let noSpacesString : string = "";
+    
+    for(let i = 0; i < string.length; i++){
+        if(string.charAt(i) !== " "){
+            noSpacesString += string.charAt(i);
+        
+        }
+    }
 
+
+    for(let i = 0 ; i + shingleSize - 1 < noSpacesString.length; i++){
+
+        let subString : string = noSpacesString.substring(i, i + shingleSize);
+        
         if(!lookupTable[subString]) {
-            arr.push(string.substring(i, i + shingleSize));
+            arr.push(subString);
             lookupTable[subString] = 1; //mark as existed
         }   
     }
@@ -117,8 +136,7 @@ export function randomPermutationGenerator(size : number/** the size of the perm
                 baseArray[i] = 1;
                 numOfOnes--;
             } else {
-                // try 1s and -1s instead of 1s and 0s
-                baseArray[i] = -1;
+                baseArray[i] = 0;
             }
         }
     }
