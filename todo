@@ -1,6 +1,6 @@
 1. General
     [] replace key searching method by obj with that by map/set 
-
+    [] separate testing and dev codes from command lines.
 
 2. Locality senstive hashing
     []. investigate how to do vector hash and make sure false positives are small.
