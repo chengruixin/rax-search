@@ -4,10 +4,10 @@ import {
     normalizeToVectors,
     randomPermutationGenerator
 } from '../common/common';
+import { getJaccardSim } from '../common/distanceCalculator';
 
 import {
     hashString,
-    hashNumbers,
     projectionHashing
 } from '../common/hash';
 /**
@@ -146,8 +146,47 @@ export default function findSimilarItems(documents : Array<any>, shingleLength :
      */
     const hashMapCollector = localitySensitiveHashing(signatures, bands, rows);
 
-    console.log(hashMapCollector);
-    console.log(signatures);
+    /**
+     * 4. Filter the results
+     */
+    
+    const filterProcess = (searchTarget) => {
+       
+        const threshold = Math.pow(1/bands, 1/rows) * 0.6;
+        let res = [];
+        for(let i = 0; i < hashMapCollector.length; i++){
+            for(let value of hashMapCollector[i].values()) {
+                if(value.length > 1) {
+                    
+                    for(let j = 0; j < value.length; j++){
+                        if(value[j] === searchTarget) {
+                            for(let k = 0; k < value.length; k++){
+                                if(k === j ) continue;
+
+                                let sim = getJaccardSim(signatures[value[j]], signatures[value[k]])
+                                console.log(documents[value[k]]);
+                                console.log(documents[value[j]]);
+                                console.log(sim, threshold);
+                                if( sim > threshold){
+                                    res.push(value[k]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        console.log("\nSim:");
+        for(let i = 0;i<res.length; i++){
+            console.log(documents[res[i]]);
+        }
+    }   
+    filterProcess(16);
+    // console.log(hashMapCollector);
+    // console.log(threshold);
+    
+    
     // return buckets;
 }
 

@@ -49,9 +49,27 @@ export function getCosDistance(shingles1 : Array<string>, shingles2 : Array<stri
 }
 
 
-// export function getJaccardSim(params:type) {
-    
-// }
+export function getJaccardSim(vector1 : Array<number>, vector2 : Array<number>) {
+
+    if(vector1.length !== vector2.length) {
+        throw new Error("Unmatched vector length");
+    }
+
+    let intersections = 0;
+    let unions = 0;
+    for(let i = 0; i < vector1.length; i++){
+        if(vector1[i] !== vector2[i]) {
+            unions++;
+        } else if(vector1[i] !== 0) {
+            unions++;
+            intersections++;
+        }
+    }
+
+    return intersections/unions;
+
+}
+
 
 // export function getJaccardDis(params:type) {
     
