@@ -3,9 +3,7 @@
 
 
 2. Locality senstive hashing
-    []. edit localist sensitive hasing
-    []. miss bias setting, will add it later
-    []. finalise similar items matchig given the hash table ->doing
+    []. investigate how to do vector hash and make sure false positives are small.
 
 3. Pattern matching
     []. investigate Karp-Rabin String Matching
