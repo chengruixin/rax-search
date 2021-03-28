@@ -3,7 +3,7 @@
     [] separate testing and dev codes from command lines.
 
 2. Locality senstive hashing
-    []. investigate how to do vector hash and make sure false positives are small.
+    [*]. investigate how to do vector hash and make sure false positives are small.
 
 3. Pattern matching
     []. investigate Karp-Rabin String Matching
