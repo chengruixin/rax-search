@@ -81,17 +81,17 @@ function localitySensitiveHashing(signatures : Array<Array<number>>, bands : num
         
         for(let b = 0; b < bands; b++){
 
-            // let keysBundle = []; // this will be the targetVector
+            let keysBundle = []; // this will be the targetVector
 
-            // for(let r = 0; r < rows; r++){
-            //     keysBundle.push(signatures[i][b * rows + r]);
-            // }
+            for(let r = 0; r < rows; r++){
+                keysBundle.push(signatures[i][b * rows + r]);
+            }
 
             // let baseVector = baseVectorCollector[b];
             // let M = getVectorLength(baseVector);
             // let hashedKey = projectionHashing(keysBundle, baseVector, 0, M);
-            //let hashedKey = hashNumbers(keysBundle);
-            let hashedKey : string = "";
+            let hashedKey = hashNumbers(keysBundle);
+            // let hashedKey : string = "";
 
             for(let r = 0; r < rows; r++){
                 hashedKey += signatures[i][b * rows + r];

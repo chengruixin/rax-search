@@ -15,7 +15,7 @@ export const case1 = [
     "A cat is eating a dog at the end of this sentence",//13
     "Dog went to hospital by the cat",//14
     "Done",//15
-    "This is an eded a sentence dog with a cat"//16
+    "This is an ended a sentence dog with a cat"//16
 ]
 
 export const case2 = [
