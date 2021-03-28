@@ -15,23 +15,15 @@ import {
 } from '../fuzzyMatch/fuzzyMatcher';
 
 export default function test() : void {
-    const string1 = "w";
-    const string2 = "drink water";
-    const string3 = "watermelon"
+    const string1 = "welooooooooo";
+    const string2 = "willooooo";
+    const string3 = "WELOeeee"
 
-    console.log(hashString(string1));
-    console.log(hashString(string2));
-    console.log(hashString(string3));
-    
-    const shingles1 = getShinglesDisregardRepeated(string1, 2);
-    const shingles2 = getShinglesDisregardRepeated(string2, 2);
+    const res = produceSimilarItems([string1, string2, string3], "welo", {
+        isCaseSensitive : true,
+        lineToLeft : false
+    });
 
-    // console.log(shingles1, shingles2)
-    const result = normalizeToVectors([shingles1, shingles2]);
-    // console.log(result);
-    console.log(getLvstnDistance(string1, string2));
-    console.log(getCosDistance(shingles1, shingles2));
-
-    
+    console.log(res);    
 }
 

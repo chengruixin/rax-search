@@ -19,7 +19,7 @@ function computeNext(pattern){
     return next;
 }
 
-function getMatchedIndexArray(haystack, pattern){
+export function getMatchedIndexArray(haystack, pattern){
     const ans = [];
     //get next
     const next = computeNext(pattern);
@@ -60,7 +60,7 @@ function getMatchedIndexArray(haystack, pattern){
 
 }
 
-function hasPattern(haystack, pattern){
+export function hasPattern(haystack, pattern){
     // const ans = [];
     //get next
     const next = computeNext(pattern);
@@ -102,7 +102,3 @@ function hasPattern(haystack, pattern){
 
 }
 
-module.exports = {
-    getMatchedIndexArray,
-    hasPattern
-};

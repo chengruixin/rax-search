@@ -4,7 +4,7 @@ import commonTest from './src/testing/common.test';
 import distanceTest from './src/testing/distance.test';
 
 
-// fuzzyTest();
-shingTest();
+fuzzyTest();
+// shingTest();
 // commonTest();
 // distanceTest();
