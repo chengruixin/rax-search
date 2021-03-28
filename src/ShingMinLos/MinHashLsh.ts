@@ -4,7 +4,7 @@ import {
     normalizeToVectors,
     randomPermutationGenerator
 } from '../common/common';
-import { getJaccardSim } from '../common/distanceCalculator';
+import { getJaccardSim } from '../common/distance';
 
 import {
     hashNumbers,

@@ -8,7 +8,7 @@ import { hashString } from '../common/hash';
 import {
     getLvstnDistance,
     getCosDistance
-} from '../common/distanceCalculator';
+} from '../common/distance';
 
 import {
     findSimilarItems

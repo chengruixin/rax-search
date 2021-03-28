@@ -30,7 +30,7 @@ export function findExactItems(pattern : string){
     next[0] = -1;
 
     return {
-        findAll : function (haystack : string) : Array<number> {
+        findAll (haystack : string) : Array<number> {
             const result = [];
 
             let haystackPointer = 0;
@@ -61,7 +61,7 @@ export function findExactItems(pattern : string){
             return result;
         },
 
-        findFirst : function (haystack : string) : number {
+        findFirst(haystack : string) : number {
             let result = -1;
             let haystackPointer = 0;
             let patternPointer = 0;

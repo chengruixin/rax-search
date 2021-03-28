@@ -147,7 +147,7 @@ export function randomPermutationGenerator(size : number/** the size of the perm
          * 
          * @returns the original array when it is initialized
          */
-        shuffle : function () : Array<any> {
+        shuffle () : Array<any> {
             for(let i = 0; i < size - 1; i++){
                 let swapIndex = Math.floor(Math.random() * (size - i));
         
@@ -164,7 +164,7 @@ export function randomPermutationGenerator(size : number/** the size of the perm
          * 
          * @returns a new array which used extra memory
          */
-        shuffleNew : function() : Array<any> {
+        shuffleNew () : Array<any> {
             const copiedArray = [...baseArray];
 
             for(let i = 0; i < size - 1; i++){

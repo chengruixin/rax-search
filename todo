@@ -2,3 +2,4 @@
     [] separate testing and dev codes from command lines.
     [] configure import/export modules.
         []. make sure node/browser env could both be used.
+    []. write test

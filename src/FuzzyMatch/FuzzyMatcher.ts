@@ -1,4 +1,4 @@
-import {getCosDistance, getLvstnDistance} from '../common/distanceCalculator';
+import {getCosDistance, getLvstnDistance} from '../common/distance';
 import {getShinglesDisregardRepeated} from '../common/common';
 
 
