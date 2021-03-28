@@ -12,7 +12,7 @@ import {
 
 import {
     findSimilarItems
-} from '../fuzzyMatch/fuzzyMatcher';
+} from '../patternMatch/fuzzy';
 
 export default function test() : void {
     const string1 = "welooooooooo";

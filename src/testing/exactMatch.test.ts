@@ -1,6 +1,6 @@
 import {
     findExactItems
-} from '../exactMatch/patternFinder';
+} from '../patternMatch/exact';
 
 
 export default function run(){

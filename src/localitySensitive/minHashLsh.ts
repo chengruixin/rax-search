@@ -121,7 +121,7 @@ function localitySensitiveHashing(signatures : Array<Array<number>>, bands : num
  * @param {b val} bands 
  * @param {r val} rows 
  */
-export default function findSimilarItems(documents : Array<any>, shingleLength : number, bands : number, rows : number){
+export default function shingMinLocSenHash(documents : Array<any>, shingleLength : number, bands : number, rows : number){
     
     const signatureLength = bands * rows;
     /**

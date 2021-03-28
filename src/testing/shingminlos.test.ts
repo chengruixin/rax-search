@@ -1,5 +1,5 @@
 import { randomPermutationGenerator } from '../common/common';
-import findSimilarItems from '../shingMinLos/minHashLsh'
+import findSimilarItems from '../localitySensitive/minHashLsh'
 import {case1, case2} from '../assets/haystacks';
 
 

@@ -1,8 +1,6 @@
 import {getCosDistance, getLvstnDistance} from '../common/distance';
 import {getShinglesDisregardRepeated} from '../common/common';
 
-
-
 /**
  * 
  * @param {String[]} haystacks 
@@ -26,11 +24,8 @@ export function findSimilarItems(haystacks : Array<string>, pattern : string, se
     //pre-configure settings 
     Object.setPrototypeOf(settings, defaultSettings);
     const {isCaseSensitive, lineToLeft} = settings;
-    
-    
     const similarItems = [];
 
-    
     if(!isCaseSensitive) 
         pattern = pattern.toLowerCase();
 
@@ -55,6 +50,7 @@ export function findSimilarItems(haystacks : Array<string>, pattern : string, se
             similarity : sim
         })
     }
+    
     similarItems.sort((obj1, obj2) => obj2.similarity - obj1.similarity);// decreasing order
 
     return similarItems;

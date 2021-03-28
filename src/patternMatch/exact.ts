@@ -1,27 +1,6 @@
-function computeNext(pattern : string) : Array<number> {
-    if(pattern.length <= 0) return [];
-
-    const next : Array<number> = new Array(pattern.length);
-
-    let prefix : number = 0;
-    next[0] = 0;
-
-    for( let suffix = 1; suffix < next.length; suffix++ ){
-        while(prefix > 0 && pattern.charAt(prefix) !== pattern.charAt(suffix))
-            prefix = next[prefix - 1];
-        
-        if(pattern.charAt(prefix) === pattern.charAt(suffix))
-            prefix++;
-        
-        next[suffix] = prefix;
-    }
-
-    return next;
-}
-
 export function findExactItems(pattern : string){
     //concrete "next" array for this pattern;
-    const next = computeNext(pattern);
+    const next = generateNext(pattern);
     
     //right move the next
     for(let i = next.length - 1; i >= 1; i--){
@@ -90,4 +69,25 @@ export function findExactItems(pattern : string){
             return result;
         }
     }
+}
+
+function generateNext(pattern : string) : Array<number> {
+    if(pattern.length <= 0) return [];
+
+    const next : Array<number> = new Array(pattern.length);
+
+    let prefix : number = 0;
+    next[0] = 0;
+
+    for( let suffix = 1; suffix < next.length; suffix++ ){
+        while(prefix > 0 && pattern.charAt(prefix) !== pattern.charAt(suffix))
+            prefix = next[prefix - 1];
+        
+        if(pattern.charAt(prefix) === pattern.charAt(suffix))
+            prefix++;
+        
+        next[suffix] = prefix;
+    }
+
+    return next;
 }
