@@ -1,6 +1,7 @@
 import {
-    normalizeToVectors
-} from './Computer';
+    normalizeToVectors,
+    getDotProduct
+} from './common';
 
 export function getLvstnDistance(string1 : string, string2 : string) {
     //dp init
@@ -35,11 +36,7 @@ export function getLvstnDistance(string1 : string, string2 : string) {
 
 export function getCosDistance(shingles1 : Array<string>, shingles2 : Array<string>) : number { 
     const [vec1 , vec2] = normalizeToVectors([shingles1, shingles2]);
-    let dotProduct :number = 0;
-    
-    for(let i = 0; i < vec1.length; i++){
-        dotProduct += vec1[i] * vec2[i];
-    }
+    let dotProduct :number = getDotProduct(vec1, vec2);
     
     let vecLen1 : number = 0;
     let vecLen2 : number = 0;
@@ -52,4 +49,28 @@ export function getCosDistance(shingles1 : Array<string>, shingles2 : Array<stri
 }
 
 
+export function getJaccardSim(vector1 : Array<number>, vector2 : Array<number>) {
 
+    if(vector1.length !== vector2.length) {
+        throw new Error("Unmatched vector length");
+    }
+
+    let intersections = 0;
+    let unions = 0;
+    for(let i = 0; i < vector1.length; i++){
+        if(vector1[i] !== vector2[i]) {
+            unions++;
+        } else if(vector1[i] !== 0) {
+            unions++;
+            intersections++;
+        }
+    }
+
+    return intersections/unions;
+
+}
+
+
+// export function getJaccardDis(params:type) {
+    
+// }

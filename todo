@@ -1,5 +1,14 @@
-[*]. improve hash string function(time complexity)
-[*]. walk through shing-min-los algo
-[]. improve min-hashing algo
-[]. edit localist sensitive hasing
-[]. edit random array generator
+1. General
+    [] replace key searching method by obj with that by map/set 
+    [] separate testing and dev codes from command lines.
+
+2. Locality senstive hashing
+    []. investigate how to do vector hash and make sure false positives are small.
+
+3. Pattern matching
+    []. investigate Karp-Rabin String Matching
+    []. sepearte KMP compute next and search function
+
+4. FuzzyMatch
+    []. add entry settings(the extra parameters) in fuzzy match
+    
