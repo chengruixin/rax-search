@@ -11,7 +11,7 @@ import {
 } from '../common/distanceCalculator';
 
 import {
-    produceSimilarItems
+    findSimilarItems
 } from '../fuzzyMatch/fuzzyMatcher';
 
 export default function test() : void {
@@ -19,7 +19,7 @@ export default function test() : void {
     const string2 = "willooooo";
     const string3 = "WELOeeee"
 
-    const res = produceSimilarItems([string1, string2, string3], "welo", {
+    const res = findSimilarItems([string1, string2, string3], "welo", {
         isCaseSensitive : true,
         lineToLeft : false
     });

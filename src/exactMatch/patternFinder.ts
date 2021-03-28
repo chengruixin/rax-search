@@ -1,9 +1,9 @@
-function computeNext(pattern){
-    if(pattern <= 0) return [];
+function computeNext(pattern : string) : Array<number> {
+    if(pattern.length <= 0) return [];
 
-    const next = new Array(pattern.length);
+    const next : Array<number> = new Array(pattern.length);
 
-    let prefix = 0;
+    let prefix : number = 0;
     next[0] = 0;
 
     for( let suffix = 1; suffix < next.length; suffix++ ){
@@ -19,86 +19,75 @@ function computeNext(pattern){
     return next;
 }
 
-export function getMatchedIndexArray(haystack, pattern){
-    const ans = [];
-    //get next
+export function findExactItems(pattern : string){
+    //concrete "next" array for this pattern;
     const next = computeNext(pattern);
-
+    
     //right move the next
     for(let i = next.length - 1; i >= 1; i--){
         next[i] = next[i - 1];
     }
     next[0] = -1;
 
-    //assign pointers to these two strings
-    let ttPtr = 0;
-    let ptPtr = 0;
+    return {
+        findAll : function (haystack : string) : Array<number> {
+            const result = [];
 
-    while(ttPtr < haystack.length){
-        if(haystack.charAt(ttPtr) === pattern.charAt(ptPtr)){
-            ttPtr++;
-            ptPtr++;
+            let haystackPointer = 0;
+            let patternPointer = 0;
 
-            if(ptPtr === pattern.length){ // found matched
-                ans.push( ttPtr - pattern.length);
-                ttPtr--;
-                ptPtr = 0;
+            while (haystackPointer < haystack.length) {
+
+                // no char is matched, it will next index to be matching according to "next" array
+                if(haystack.charAt(haystackPointer) !== pattern.charAt(patternPointer)){
+                    if(next[patternPointer] === -1) { // no sub-pattern is found, needs to move the haystack pointer forward
+                        haystackPointer++;
+                    } else {
+                        patternPointer = next[patternPointer];
+                    }
+                } else {
+                    // found matched char
+                    haystackPointer++;
+                    patternPointer++;
+
+                    if (patternPointer >= pattern.length) {
+                        result.push( haystackPointer - pattern.length );
+                        haystackPointer = haystackPointer - pattern.length + 1; // only move the index, from matched string, 1 forward
+                        patternPointer = 0;
+                    }
+                }
             }
-            continue;
-        }
 
-        if(next[ptPtr] !== -1){
-            ptPtr = next[ptPtr];
-            continue;
-        }
+            return result;
+        },
 
-        ttPtr++;
-        
-    }
+        findFirst : function (haystack : string) : number {
+            let result = -1;
+            let haystackPointer = 0;
+            let patternPointer = 0;
 
-    return ans;
+            while (haystackPointer < haystack.length) {
+                
+                // no char is matched, it will next index to be matching according to "next" array
+                if(haystack.charAt(haystackPointer) !== pattern.charAt(patternPointer)){
+                    if(next[patternPointer] === -1) { // no sub-pattern is found, needs to move the haystack pointer forward
+                        haystackPointer++;
+                    } else {
+                        patternPointer = next[patternPointer];
+                    }
+                } else {
+                    // found matched char
+                    haystackPointer++;
+                    patternPointer++;
 
-}
-
-export function hasPattern(haystack, pattern){
-    // const ans = [];
-    //get next
-    const next = computeNext(pattern);
-
-    //right move the next
-    for(let i = next.length - 1; i >= 1; i--){
-        next[i] = next[i - 1];
-    }
-    next[0] = -1;
-
-    //assign pointers to these two strings
-    let ttPtr = 0;
-    let ptPtr = 0;
-
-    while(ttPtr < haystack.length){
-        if(haystack.charAt(ttPtr) === pattern.charAt(ptPtr)){
-            ttPtr++;
-            ptPtr++;
-
-            if(ptPtr === pattern.length){ // found matched
-                return true;
-                // ans.push( ttPtr - pattern.length);
-                // ttPtr--;
-                // ptPtr = 0;
+                    if (patternPointer >= pattern.length) {
+                        result = haystackPointer - pattern.length;
+                        break;
+                    }
+                }
             }
-            continue;
-        }
 
-        if(next[ptPtr] !== -1){
-            ptPtr = next[ptPtr];
-            continue;
+            return result;
         }
-
-        ttPtr++;
-        
     }
-
-    return false;
-
 }
-

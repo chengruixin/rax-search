@@ -22,7 +22,7 @@ let defaultSettings : settingsSchema = {
     isCaseSensitive : true,
     lineToLeft : false,
 }
-export function produceSimilarItems(haystacks : Array<string>, pattern : string, settings? : settingsSchema) : Array<string> {
+export function findSimilarItems(haystacks : Array<string>, pattern : string, settings? : settingsSchema) : Array<string> {
     //pre-configure settings 
     Object.setPrototypeOf(settings, defaultSettings);
     const {isCaseSensitive, lineToLeft} = settings;
