@@ -17,7 +17,7 @@ module.exports = {
         ]
     },
     output : {
-        filename : "main.js",
+        filename : "index.js",
         path : Path.join(__dirname, "dist")
     }
 }
