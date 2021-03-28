@@ -1,13 +1,4 @@
 1. General
-    [] replace key searching method by obj with that by map/set 
     [] separate testing and dev codes from command lines.
-
-2. Locality senstive hashing
-    [*]. investigate how to do vector hash and make sure false positives are small.
-
-3. Pattern matching
-    [*]. sepearte KMP compute next and search function
-
-4. FuzzyMatch
-    [*]. add entry settings(the extra parameters) in fuzzy match
-    
+    [] configure import/export modules.
+        []. make sure node/browser env could both be used.
