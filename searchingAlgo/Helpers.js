@@ -95,13 +95,13 @@ function getShinglesByWords(items, len){
  *  
  */
 function getVectors(matrix){
-    console.time("half");
+    // console.time("half");
     const lines = new Array(matrix.length);;
     const union = new Set();
     
-    console.log("size : ", matrix.length);
-    console.log("length : " , matrix[0].length);
-    console.log("el : ", matrix[0][0])
+    // console.log("size : ", matrix.length);
+    // console.log("length : " , matrix[0].length);
+    // console.log("el : ", matrix[0][0])
     for(let i = 0; i < matrix.length; i++){
 
         lines[i] = new Set();
@@ -118,9 +118,9 @@ function getVectors(matrix){
         
     }
     
-    console.timeEnd("half");
+    // console.timeEnd("half");
     const vectorsMatrix = new Array(lines.length);
-    console.log(union.size, vectorsMatrix.length);
+    // console.log(union.size, vectorsMatrix.length);
     for(let i = 0; i < lines.length ; i++){
         vectorsMatrix[i] = new Array(union.size);
         let j = 0;
