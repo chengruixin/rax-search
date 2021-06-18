@@ -1,8 +1,10 @@
 const Path = require("path");
 
-module.exports = {
-    entry : "./test.ts",
+/** @type {import('webpack').Configuration} */
+const config = {
+    entry : "./index.ts",
     mode : "development",
+    devtool : "cheap-source-map",
     resolve : {
         extensions : [ '.tsx', '.ts', '.js']
     },
@@ -17,7 +19,14 @@ module.exports = {
         ]
     },
     output : {
-        filename : "index.js",
-        path : Path.join(__dirname, "dist")
+        filename : "raxSearch.dev.js",
+        path : Path.join(__dirname, "raxSearch"),
+        library : {
+            name : "raxSearch",
+            type : "umd"
+        },
+        globalObject : "this"
     }
 }
+
+module.exports = config;

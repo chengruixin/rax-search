@@ -4,9 +4,9 @@
     "description": "This package uses seraching algorithm to find similar strings",
     "main": "index.js",
     "scripts": {
-        "start" : "node ./dist/index.js",
+        "start": "node ./dist/index.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build" : "webpack"
+        "build": "webpack"
     },
     "repository": {
         "type": "git",
